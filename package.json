@@ -1,0 +1,32 @@
+{
+  "name": "com.cart.gloveman",
+  "version": "3.3.2",
+  "displayName": "ONEzoo",
+  "cordova": {
+    "platforms": [
+      "android",
+      "browser"
+    ],
+    "plugins": {
+      "com.telerik.plugins.nativepagetransitions": {},
+      "cordova-pdf-generator": {},
+      "cordova-plugin-safariviewcontroller": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-file": {},
+      "cordova-plugin-file-transfer": {},
+      "ionic-plugin-keyboard": {}
+    }
+  },
+  "dependencies": {
+    "com.telerik.plugins.nativepagetransitions": "~0.6.5",
+    "cordova-android": "^6.3.0",
+    "cordova-browser": "^5.0.3",
+    "cordova-pdf-generator": "~1.5.3",
+    "cordova-plugin-file": "^6.0.1",
+    "cordova-plugin-file-transfer": "^1.7.1",
+    "cordova-plugin-safariviewcontroller": "~1.4.7",
+    "cordova-plugin-whitelist": "1",
+    "ionic-plugin-keyboard": "^2.2.1"
+  },
+  "devDependencies": {}
+}

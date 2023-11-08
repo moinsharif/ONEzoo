@@ -1,0 +1,11 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "ONEzoo",
+  "short_name": "ONEzoo",
+  "version": "com.cart.gloveman",
+  "description": "ONEzoo Marketplace",
+  "author": "Vistabit Technalogies",
+  "icons": [],
+  "start_url": "index.html"
+}

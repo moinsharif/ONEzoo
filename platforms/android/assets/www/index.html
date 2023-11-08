@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src * gap://* file://* cdvfile://*;img-src * filesystem: 'self' data: https: cdvfile://*; font-src * 'self' data: https: cdvfile://*; script-src 'self' 'unsafe-inline' 'unsafe-eval' * cdvfile://*; style-src  'self' 'unsafe-inline' * cdvfile://*">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="fonts/montserrat.css" />
+    <link rel="stylesheet" type="text/css" href="css/checkradios.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>ONEzoo</title>
+</head>
+<body>
+    <!-- Dashboard Page -->
+    <div data-role="page" id="home_page">
+        <!-- Sidebar Start -->
+        <div data-role="panel" data-dismissible="true" class="nav-panel-main" id="navpanel_home" data-position-fixed="true" data-theme="a" data-display="overlay" data-position="left">
+            <div class="menu-header"><img src="img/menu-logo.png" alt="" border="0" /></div>
+            <div class="custom-pannel-inner sidebar-main-content">
+                <div class="search_bar_new search_menu">
+                    <input type="text" class="search_value" value="" placeholder="Search Here...">
+                    <a href="#" class="search_icon search_icon_menu"><img src="img/search-icon.png" border="0"></a>
+                </div>
+                <div class="clear_both"></div>
+                <div class="current_entry_company"><span></span></div>
+                <div class="menu_data">
+                    <ul class="custom-listing dynamic_menu"></ul>
+                    <button class="ui-btn setting-btn list-btn" onClick="goTO('supplier_page');"><img src="img/list-icon.png"  alt="" border="0"/> Suggested Supplier List</button>
+                    <button class="ui-btn setting-btn list-btn" onClick="goTO('invite_supplier');"><span style="color: #5b88c9;font-size: 19px;vertical-align: middle;">+</span> Invite suppliers</button>
+                    <button class="ui-btn setting-btn list-btn help-btn" onClick="goToHelp();"><span style="color: #5b88c9;font-size: 19px;vertical-align: middle;">?</span> Help </button>
+                    <button class="ui-btn setting-btn account-setting" data-type="setting"><i class="fa fa-cog"></i> Account Settings</button>
+                    <button class="ui-btn setting-btn create-account"><i class="fa fa-refresh"></i> Update Account</button>
+                    <button class="ui-btn setting-btn logout-btn-sidebar" onClick="logoutME();"><i class="fa fa-sign-out"></i> Logout</button>
+
+                </div>
+                <div class="search_data custom-pannel-inner search-list-inner"></div>
+            </div>
+        </div>
+        <!-- Sidebar end-->
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a data-icon="bars" class="ui-btn-left bars-button" style="margin-top:10px;" href="#navpanel_home">
+                        <img src="img/menu-icon-home.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title customers_shipping_address_header">HOME</span>
+                <div class="header_menu_envelope open_web_chat"><span class="chat_notification"></span><i class="fa fa-envelope fa-2x"></i></div>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content home_page_conents">
+            <div class="search_bar_home" id="suppliers_products" data-type="products">
+                <input type="text" class="search_home_value" id="search_home_value" onKeyPress="onkeyPressSearchHome(event)" value="" placeholder="Search by product or supplier...">
+                <a href="#" class="search_icon search_home_icon_header"><img src="img/search-icon-home.png" border="0"></a>
+            </div>
+            <div class="search_bar_home">
+                <select data-role="none" id="business_type_filter" class="business_type_filter" name="business_name">
+                    
+                </select>
+            </div>
+            <div class="clear_both"></div>
+            <div class="search_contents"></div>
+            <div id="home_page_contents"></div>
+            <a href="#upgrade_popup_home_page" id="upgrade_me_button_home_page" data-rel="popup" data-position-to="window" data-transition="pop" style="display:none;">Open Upgrade Popup</a>
+            <div data-role="popup" id="upgrade_popup_home_page" data-theme="a" class="ui-corner-all">
+                <div style="padding:10px 20px;">
+                    <p class="upgrade_message">Our app is changing to ONEzoo, but requires a quick update. Please click the update button below so you can enjoy all our new features.</p>
+                    <button onclick="return update_application();" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Update now</button>
+                    <button onClick="return remind_update_appliacation_later();" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Remind me later</button>
+                </div>
+            </div>
+            
+        </div>
+        <!-- /content -->
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div data-role="navbar" data-grid="d" class="custome_footer_new footer-shadow">
+                <ul>
+                    <li data-id="feed_page"><img src="img/feed_icon_footer.png" title="Feed" alt="Feed">
+                        <p>Orders</p>
+                    </li>
+                    <li data-id="home_page" class="active_footer_tab"><img src="img/home_icon_footer_active.png" title="Home" alt="Home">
+                        <p>Home</p>
+                    </li>
+                    <li data-id="suppliers_page"><img  src="img/suppliers_icon_footer.png" title="Products" alt="Products">
+                        <p>Suppliers</p>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+        <!-- /footer -->
+        
+
+    </div>
+    <!-- Become a Supplier -->
+    <div data-role="page" id="become_a_supplier_singup">
+        <div data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="header_menu">
+                <a style="margin-top:10px;z-index:1000;" class="ui-btn-left" onClick="backtoSlider();"  data-transition="none">
+                    <img src="img/backDark.png" alt="">
+                </a>
+            </div>
+            <div class="store_logo_second">
+                <h1>Become a Supplier</h1>
+            </div>
+            
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content">
+            <form class="fast_registration_from" id="become_a_supplier_from" autocomplete="off" data-ajax="false">
+                <div class="clear_both">&nbsp;</div>
+                <div style="line-height:20px;">Your account is safely and securely managed by <strong>ONEzoo</strong> </div>
+                <div class="clear_both">&nbsp;</div>
+                <div>
+                    <label for="become_a_supplier_first_name">First Name</label>
+                    <input type="text" name="first_name" autocomplete="off" data-role="none" class="holo" id="become_a_supplier_first_name">
+                </div>
+                <div class="clear_both">&nbsp;</div>
+                <div>
+                    <label for="become_a_supplier_last_name">Last Name</label>
+                    <input type="text" name="last_name" autocomplete="off" data-role="none" class="holo" id="become_a_supplier_last_name">
+                </div>
+                <div class="clear_both">&nbsp;</div>
+                <div>
+                    <label for="become_a_supplier_mobile">Mobile Number</label>
+                    <input type="tel" name="mobile" autocomplete="off" data-role="none" class="holo" id="become_a_supplier_mobile">
+                </div>
+                <div class="clear_both">&nbsp;</div>
+                <div>
+                    <label for="become_a_supplier_user_name">Email Address</label>
+                    <input type="email" name="user_name" autocomplete="off" data-role="none" class="holo holo_full" id="become_a_supplier_user_name">
+                </div>
+                <div class="clear_both">&nbsp;</div>
+                <div style="padding-bottom:30px;">
+                    <label for="become_a_supplier_postcode">Post code</label>
+                    <input type="number" autocomplete="off" data-role="none" class="holo holo_full" name="postcode" id="become_a_supplier_postcode">
+                </div>
+                <div class="clear_both">&nbsp;</div>
+                
+
+            </form>
+        </div>
+        <!-- /content -->
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <button type="button" onClick="supplierRegistration('become_a_supplier_from');" class="next-step">COMPLETE ACCOUNT SETUP</button>
+        </div>
+    </div>
+    <!-- Fast Registration Singup -->
+
+    <div data-role="page" id="fast_registration_singup">
+        <div data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="header_menu">
+                <a style="margin-top:10px;z-index:1000;" class="ui-btn-left" onClick="backtoSlider();" data-transition="none">
+                    <img src="img/backDark.png" alt="">
+                </a>
+            </div>
+            <div class="store_logo_second">
+                <h1>CREATE ACCOUNT</h1>
+            </div>
+            
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content">
+            <form class="fast_registration_from" id="fast_registration_from" autocomplete="off" data-ajax="false">
+                <div class="clear_both">&nbsp;</div>
+                <div style="line-height:20px;">Your account is safely and securely managed by <strong>ONEzoo</strong> giving you powerful insights into your suppliers. You can find out more and edit your information within this app or at <strong>ONEzoo.com.au</strong></div>
+                <div class="clear_both">&nbsp;</div>
+                <div class="two-inputs">
+                    <label for="fast_singup_firstname">First Name</label>
+                    <input type="text" name="firstname" autocomplete="off" data-role="none" class="holo" id="fast_singup_firstname">
+                </div>
+                <div class="two-inputs">
+                    <label for="fast_singup_mobile">Mobile Number</label>
+                    <input type="tel" name="mobile" autocomplete="off" data-role="none" class="holo" id="fast_singup_mobile">
+                </div>
+                <div class="clear_both">&nbsp;</div>
+                <div>
+                    <label for="fast_singup_email">Email Address</label>
+                    <input type="email" name="email" autocomplete="off" data-role="none" class="holo holo_full" id="fast_singup_email">
+                </div>
+                <div class="clear_both">&nbsp;</div>
+                <div>
+                    <label for="fast_singup_password">Password</label>
+                    <input type="password" autocomplete="off" data-role="none" class="holo holo_full" name="password" id="fast_singup_password">
+                </div>
+                <div class="clear_both">&nbsp;</div> 
+                <div>
+                    <div class="abn_search_div">
+                        <input placeholder="Search your Business Name or ABN" type="text" class="abn_search comerical_setting abn_keyboard_search" name="abn_search">
+                        <a class="search_icon ui-link" href="javascript:void(0);" onClick="abn_search_list();"><i class="fa fa-search" aria-hidden="true"></i></a>
+                        <div class="abn_search_list"></div>
+                    </div>
+                    <div class="abn_num_div" style="display:none;">
+                        <label for="abn_num" class="comerical_setting">ABN : <span class="selected_abn"></span></label>
+                        <input type="hidden" class="comerical_setting abn_num_val" name="abn" id="abn_num">
+                        <a href="javascript:abn_research();" class="button_blue" style="margin-left:0;margin-bottom:10px;" data-mini="true" data-inline="true" data-role="button" data-theme="b">Edit ABN</a>
+                    </div>
+                </div>
+                
+                <div class="clear_both">&nbsp;</div>
+                <div>
+                    <label for="fast_industry_type">Company Type</label>
+                    <select id="fast_industry_type" class="holo holo_full" name="industry_type" data-mini="true" data-role="none" data-native-menu="true">
+                        <option value="">Chose your company type</option>
+                        <option value="1">Bakery</option>
+                        <option value="2">Butchers</option>
+                        <option value="3">Cafe &amp; Sandwich Bar</option>
+                        <option value="4">Catering</option>
+                        <option value="5">Charcoal Chicken</option>
+                        <option value="6">Cleaners</option>
+                        <option value="7">Commercial Use</option>
+                        <option value="8">Deli</option>
+                        <option value="9">Fish &amp; Chips</option>
+                        <option value="10">Fishmonger</option>
+                        <option value="11">Hair, Nails &amp; Beauty</option>
+                        <option value="12">Burger Bars</option>
+                        <option value="13">Juice Bar and Coffee</option>
+                        <option value="14">Pizza</option>
+                        <option value="15">Poultry</option>
+                        <option value="16">Restaurant</option>
+                        <option value="17">Sushi &amp; Noodle</option>
+                        <option value="18">Takeaway Shop</option>
+                        <option value="20">Mechanics</option>
+                        <option value="21">Tattoo Parlour</option>
+                        <option value="22">Beauty Therapy</option>
+                        <option value="23">Retail Shop</option>
+                        <option value="24">Service Station</option>
+                        <option value="25">Nightclubs, Pubs and Bars</option>
+                        <option value="26">Candle Making</option>
+                        <option value="27">Vietnamese Pho</option>
+                        <option value="28">Sports Club</option>
+                        <option value="29">Child Care</option>
+                        <option value="30">Health Care</option>
+                        <option value="31">Hospital</option>
+                        <option value="32">Vet</option>
+                        <option value="33">Kinder and Schools</option>
+                        <option value="34">Mining</option>
+                        <option value="35">Tradies</option>
+                        <option value="37">Household Items</option>
+                    </select>
+                </div>
+                <div class="clear_both">&nbsp;</div>
+                <div>
+                    <label for="fast_singup_form_postcode">Post code</label>
+                    <input type="number" autocomplete="off" data-role="none" class="holo holo_full" name="postcode" id="fast_singup_form_postcode">
+                </div>
+                <div class="clear_both">&nbsp;</div>
+                <div>
+                    <input type="checkbox" data-role="none" name="mailing_list" class="custome_checkbox" id="mailing_list" data-enhanced="true" value="1" style="float:left;">
+                    <span style="margin-left:10px;">I would like to be on the ONEzoo mailing list</span>
+                </div>
+                <div class="clear_both">&nbsp;</div>
+                <div style="padding-bottom:60px;">
+                    <input type="checkbox" data-role="none" name="terms_accept" class="custome_checkbox" id="terms_accept" data-enhanced="true" value="1" style="float:left;">
+                    <span style="margin-left:10px;">I accept the <a data-role="none"  onClick="cordova.InAppBrowser.open('https://onezoo.com.au/terms', '_blank', 'location=yes');">terms and conditions</a></span>
+                </div>
+
+
+            </form>
+        </div>
+        <!-- /content -->
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <button type="button" onClick="fastRegistration('fast_registration_from');" class="next-step">CREATE ACCOUNT</button>
+        </div>
+    </div>
+    <!-- Feed Page -->
+    <div data-role="page" id="feed_page">
+        <!-- Sidebar Start -->
+        <div data-role="panel" data-dismissible="true" class="nav-panel-main" id="navpanel_feed" data-position-fixed="true" data-theme="a" data-display="overlay" data-position="left">
+            <div class="menu-header"><img src="img/menu-logo.png" alt="" border="0" /></div>
+            <div class="custom-pannel-inner sidebar-main-content">
+                <div class="search_bar_new search_menu">
+                    <input type="text" class="search_value" value="" placeholder="Search Here...">
+                    <a href="#" class="search_icon search_icon_menu"><img src="img/search-icon.png" border="0"></a>
+                </div>
+                <div class="clear_both"></div>
+                <div class="current_entry_company"><span></span></div>
+                <div class="menu_data">
+                    <ul class="custom-listing dynamic_menu"></ul>
+                    <button class="ui-btn setting-btn list-btn" onClick="goTO('supplier_page');"><img src="img/list-icon.png"  alt="" border="0"/> Suggested Supplier List</button>
+                    <button class="ui-btn setting-btn list-btn" onClick="goTO('invite_supplier');"><span style="color: #5b88c9;font-size: 19px;vertical-align: middle;">+</span> Invite suppliers</button>
+                    <button class="ui-btn setting-btn list-btn help-btn" onClick="goToHelp();"><span style="color: #5b88c9;font-size: 19px;vertical-align: middle;">?</span> Help </button>
+                    <button class="ui-btn setting-btn account-setting" data-type="setting"><i class="fa fa-cog"></i> Account Settings</button>
+                    <button class="ui-btn setting-btn create-account"><i class="fa fa-refresh"></i> Update Account</button>
+                    <button class="ui-btn setting-btn logout-btn-sidebar" onClick="logoutME();"><i class="fa fa-sign-out"></i> Logout</button>
+
+                </div>
+                <div class="search_data custom-pannel-inner search-list-inner"></div>
+            </div>
+        </div>
+        <!-- Sidebar end-->
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a data-icon="bars" class="ui-btn-left bars-button" style="margin-top:10px;" href="#navpanel_feed">
+                        <img src="img/menu-icon-home.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title">Orders History</span>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content feed_page_conents">
+            <div class="clear_both">&nbsp;</div>
+            <ul data-role="listview" data-filter="true" data-filter-placeholder="Search your Order" data-inset="true" id="feed_page_conents">
+            
+
+        </div>
+        <!-- /content -->
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div data-role="navbar" data-grid="d" class="custome_footer_new footer-shadow">
+                <ul>
+                    <li data-id="feed_page" class="active_footer_tab"><img  src="img/feed_icon_footer_active.png" title="Feed" alt="Feed">
+                        <p>Orders</p>
+                    </li>
+                    <li data-id="home_page"><img  src="img/home_icon_footer.png" title="Home" alt="Home">
+                        <p>Home</p>
+                    </li>
+                    <li data-id="suppliers_page"><img  src="img/suppliers_icon_footer.png" title="Products" alt="Products">
+                        <p>Suppliers</p>
+                    </li>
+                  
+                </ul>
+            </div>
+        </div>
+        <!-- /footer -->
+      
+    </div>
+
+    <!-- Manage credit card Page -->
+    <div data-role="page" id="manage_credit_card_page">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a class="ui-btn-left bars-button" style="margin-top:10px;z-index:1000;" onClick="goTO('setting')">
+                        <img src="img/backDark.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title one_zoo_logo"><img src="img/ONEzoo Logo Vector Black.png"></span>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content manage_credit_card_page_conents">
+            <div class="account-box-main">
+                <h2>Credit Cards</h2><span class="caret-img"></span>
+            </div>
+            <div class="clear_both"></div>
+            <div id="manage_credit_card_page_contents">
+            </div>
+            <div data-role="popup" id="sup_join_manage_credit_card_page" data-theme="a" class="ui-corner-all">
+                <div style="padding:10px 20px;">
+                    <h3>Request Supplier to Join</h3>
+                    <label for="sup_name" class="ui-hidden-accessible">Supplier Name:</label>
+                    <input name="sup_name" id="sup_name" value="" placeholder="Supplier Name" data-theme="a" type="text">
+                    <label for="sup_company" class="ui-hidden-accessible">Company:</label>
+                    <input name="sup_company" id="sup_company" value="" placeholder="Supplier Company" data-theme="a" type="text">
+                    <label for="sup_email" class="ui-hidden-accessible">Email:</label>
+                    <input name="sup_email" id="sup_email" value="" placeholder="Email" data-theme="a" type="text">
+                    <button onClick="sendJoinRequest()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Send Join Request</button>
+                </div>
+            </div>
+        </div>
+        <!-- /content -->
+       
+    </div>
+
+    <div data-role="page" id="manage_users">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a class="ui-btn-left bars-button" style="margin-top:10px;z-index:1000;" onClick="goTO('setting')">
+                        <img src="img/backDark.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title one_zoo_logo"><img src="img/ONEzoo Logo Vector Black.png"></span>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content manage_credit_card_page_conents">
+            <div class="account-box-main">
+                <h2>Manage Users</h2><span class="caret-img"></span>
+            </div>
+            <div class="clear_both"></div>
+            <div>
+                <p>A user is someone who has access to create an order on your behalf. Each user account also has its own customizable access permissions.</p>
+                <div id="manage_users_btn" style="text-align:right;">
+                    <a onClick="openaddNewUser('manage_invite_form');" class="open-modal button_blue ui-link ui-btn ui-btn-b ui-btn-inline ui-shadow ui-corner-all ui-mini" data-mini="true" data-inline="true" data-role="button" data-theme="b" role="button">
+                    Add New User
+                </a>
+                </div>
+            </div>
+            <div class="clear_both"></div>
+            <div id="manage_users_page_conents">
+            </div>
+            <div data-role="popup" id="popup_manage_users">
+                <button style="position:fixed; top:10px; left:10px; opacity:0"></button>
+                <div style="padding: 15px;">
+                   <div class="product_question_header"><h2>Add New User</h2></div>
+                   <div class="close_popup_btn" onClick="close_popup('#popup_manage_users');"><img height=22 src="img/cancel.svg"></div>
+
+                   <div>
+                    <p>A user is someone who has access to create an order on your behalf. Each user account also has its own customizable access permissions.</p>
+                        
+                           
+                            <label for="invite_first_name">First Name</label>
+                            <input type="text" name="first_name" class="holo" data-role="none" id="invite_first_name">
+                            <div class="clear_both">&nbsp;</div>
+                            <label for="manage_invite_email">Email Address</label>
+                            <input type="email" name="email" class="holo" data-role="none" id="manage_invite_email">
+                            <div class="clear_both">&nbsp;</div>
+                            <label>User Permissions</label>
+                            <div class="clear_both">&nbsp;</div>
+                            <input type="checkbox" data-role="none" name="premissions" id="save_credit_cards" value="use_credit_card" class="custome_checkbox_css">
+                            <label for="save_credit_cards">Use Save Credit Cards</label>
+                            <div class="clear_both">&nbsp;</div>
+                            <input type="checkbox" data-role="none" name="premissions" id="add_new_address" value="add_address" class="custome_checkbox_css">
+                            <label for="add_new_address">Add New Address</label>
+                            <div class="clear_both">&nbsp;</div>
+                            <input type="checkbox" data-role="none" name="premissions" id="manage_products_list" value="manage_products_list" class="custome_checkbox_css">
+                            <label for="manage_products_list">Manage Products List</label>
+                            <div class="clear_both">&nbsp;</div>
+                            <input type="checkbox" data-role="none" name="premissions" id="access_new_suppliers" value="access_new_suppliers" class="custome_checkbox_css">
+                            <label for="access_new_suppliers">Access New Suppliers</label>
+                            <div class="clear_both">&nbsp;</div>
+                            <input type="checkbox" data-role="none" name="premissions" id="manage_custom_suppliers" value="manage_custom_suppliers" class="custome_checkbox_css">
+                            <label for="manage_custom_suppliers">Manage Custom Suppliers</label>
+                            <div class="clear_both">&nbsp;</div>
+                        
+                        <div onClick="addNewUser('manage_invite_form')" style="font-size: 14px; color: #FFF;" class="send_q_btn sign-in-popup"><b>Add User</b></div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <!-- /content -->
+        
+    </div>
+
+    <div data-role="page" id="manage_accounts">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a class="ui-btn-left bars-button" style="margin-top:10px;z-index:1000;" onClick="goTO('setting')">
+                        <img src="img/backDark.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title one_zoo_logo"><img src="img/ONEzoo Logo Vector Black.png"></span>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content manage_credit_card_page_conents">
+            <div class="account-box-main">
+                <h2>SWITCH ACCOUNT</h2><span class="caret-img"></span>
+            </div>
+            <div class="clear_both"></div>
+            <div>
+                <p>Which store would you like to access?</p>
+            </div>
+            <div class="clear_both"></div>
+            <div class="manage_accounts_page_conents">
+            </div>
+
+        </div>
+        <!-- /content -->
+        
+    </div>
+
+    <div data-role="page" id="supplier_page_intro">
+        <div data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="store_logo_second" style="text:align:center;">
+                <h1>ADD SUPPLIERS</h1>
+            </div>
+        </div>
+        <!-- /header -->
+        <h4>We have suggested some suppliers based on your information, select some you might be intersted in</h4>
+        <div id="supplier_page_conents_intro">
+            <div class="custom-pannel-inner search-list-inner" id="supplier_collaps_intro">
+            </div>
+        </div>
+
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <button id="next-step-supplier-intro" onClick="skipSlideshow();" class="next-step" disabled>NEXT</button>
+    </div>
+
+    <div data-role="page" id="switch_account_page">
+        <div data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="store_logo_second" style="text:align:center;">
+                <h1>CHOOSE ACCOUNT</h1>
+            </div>
+        </div>
+        <!-- /header -->
+        <h4>We have suggested some suppliers based on your information, select some you might be intersted in</h4>
+        <div id="switch_account_page_contents">
+            <div class="custom-pannel-inner search-list-inner manage_accounts_page_conents">
+            </div>
+        </div>
+
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+
+    </div>
+    <!-- Suggested Supplier List Page -->
+    <div data-role="page" id="supplier_page">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a style="z-index:1000" class="ui-btn-left bars-button" style="margin-top:10px;" onClick="goTO('home_page')">
+                        <img src="img/backDark.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title one_zoo_logo"><img src="img/ONEzoo Logo Vector Black.png"></span>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content feed_page_conents">
+            <div class="account-box-main">
+                <h2>Supplier List</h2><span class="caret-img"></span>
+            </div>
+            <div class="clear_both"></div>
+            <div id="supplier_page_conents">
+                <div class="custom-pannel-inner search-list-inner" id="supplier_collaps">
+                </div>
+            </div>
+             <!--Cart Section Satart From Here-->
+            <div data-role="popup" id="sup_join_supplier_page" data-theme="a" class="ui-corner-all">
+               <div style="padding:10px 20px;">
+                   <h3>Request Supplier to Join</h3>
+                   <label for="sup_name" class="ui-hidden-accessible">Supplier Name:</label>
+                   <input name="sup_name" id="sup_name" value="" placeholder="Supplier Name" data-theme="a" type="text">
+                   <label for="sup_company" class="ui-hidden-accessible">Company:</label>
+                   <input name="sup_company" id="sup_company" value="" placeholder="Supplier Company" data-theme="a" type="text">
+                   <label for="sup_email" class="ui-hidden-accessible">Email:</label>
+                   <input name="sup_email" id="sup_email" value="" placeholder="Email" data-theme="a" type="text">
+                   <button onClick="sendJoinRequest()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Send Join Request</button>
+               </div>
+           </div>
+            
+        </div>
+        <!-- /content -->
+        
+    </div>
+    <div data-role="page" id="suppliers_page">
+        <!-- Sidebar Start -->
+        <div data-role="panel" data-dismissible="true" class="nav-panel-main" id="navpanel_suppliers" data-position-fixed="true" data-theme="a" data-display="overlay" data-position="left">
+            <div class="menu-header"><img src="img/menu-logo.png" alt="" border="0" /></div>
+            <div class="custom-pannel-inner sidebar-main-content">
+                <div class="search_bar_new search_menu">
+                    <input type="text" class="search_value" value="" placeholder="Search Here...">
+                    <a href="#" class="search_icon search_icon_menu"><img src="img/search-icon.png" border="0"></a>
+                </div>
+                <div class="clear_both"></div>
+                <div class="current_entry_company"><span></span></div>
+                <div class="menu_data">
+                    <ul class="custom-listing dynamic_menu"></ul>
+                    <button class="ui-btn setting-btn list-btn" onClick="goTO('supplier_page');"><img src="img/list-icon.png"  alt="" border="0"/> Suggested Supplier List</button>
+                    <button class="ui-btn setting-btn list-btn" onClick="goTO('invite_supplier');"><span style="color: #5b88c9;font-size: 19px;vertical-align: middle;">+</span> Invite suppliers</button>
+                    <button class="ui-btn setting-btn list-btn help-btn" onClick="goToHelp();"><span style="color: #5b88c9;font-size: 19px;vertical-align: middle;">?</span> Help </button>
+                    <button class="ui-btn setting-btn account-setting" data-type="setting"><i class="fa fa-cog"></i> Account Settings</button>
+                    <button class="ui-btn setting-btn create-account"><i class="fa fa-refresh"></i> Update Account</button>
+                    <button class="ui-btn setting-btn logout-btn-sidebar" onClick="logoutME();"><i class="fa fa-sign-out"></i> Logout</button>
+
+                </div>
+                <div class="search_data custom-pannel-inner search-list-inner"></div>
+            </div>
+        </div>
+        <!-- Sidebar end-->
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a data-icon="bars" class="ui-btn-left bars-button" style="margin-top:10px;" href="#navpanel_suppliers">
+                        <img src="img/menu-icon-home.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title">SUPPLIERS</span>
+                <div class="header_menu_envelope open_web_chat"><span class="chat_notification"></span><i class="fa fa-envelope fa-2x"></i></div>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content supplier_page_conents">
+            <div class="search_bar_home">
+                <input type="text" class="search_suppliers_value" id="search_suppliers_value" value="" placeholder="Search Your Saved Suppliers...">
+                <a href="javascript:searchSavedSupp(this.val());" class="search_icon search_saved_suppliers_icon_header"><img src="img/search-icon-home.png" border="0"></a>
+            </div>
+            <div class="clear_both"></div>
+            <div class="search_save_suppliers_contents" id="search_save_suppliers_contents"></div>
+            <div id="suppliers_page_contents">
+
+            </div>
+            <div data-role="popup" id="update_custom_supplier_popup">
+                <div style="padding: 15px;">
+                   <h2 style="text-align: center;">Update Custom Supplier</h2>
+                   <div class="close_popup_btn" onClick="close_popup('#update_custom_supplier_popup');"><img height=22 src="img/cancel.svg"></div>
+                   <button style="position:fixed; top:10px; left:10px; opacity:0"></button>
+                   <form name="update_from_custom_supplier" id="update_from_custom_supplier">
+                        <p>Here you can update any custom supplier you like, you will be able to add products on the next page and send your orders to them via email.</p>
+                        
+                        <div class="custom_supplier_input_icon"><img src="img/icons8-organization-32.png"></div>
+                        <input type="text" name="custom_supplier_company_name" id="update_custom_supplier_company_name" placeholder="Supplier Company Name"  class="custom_supplier_input"  data-role="none">
+                        <div class="clear_both">&nbsp;</div>
+                        
+                        <div class="custom_supplier_input_icon"><img src="img/icons8-phone-32.png"></div>
+                        <input type="tel" name="custom_supplier_phone" id="update_custom_supplier_phone" placeholder="Supplier Phone Number" class="custom_supplier_input" data-role="none">
+                        <div class="clear_both">&nbsp;</div>
+                        
+                        <div class="custom_supplier_input_icon"><img src="img/icons8-email-32.png"></div>
+                        <input type="email" name="custom_supplier_email" id="update_custom_supplier_email" placeholder="Supplier Email Address" class="custom_supplier_input" data-role="none">
+                        <input type="hidden" name="custom_supplier_id" id="update_custom_supplier_id" class="custom_supplier_input" data-role="none">
+                        <div class="clear_both">&nbsp;</div>
+                        <div onClick="updateCustomSupplier('update_from_custom_supplier');" class="popup_absolute_position_button send_q_btn sign-in-popup"><b>Update</b></div>
+                    </form>
+                </div>
+            </div>
+            <div data-role="popup" id="custom_supplier_popup">
+                <div style="padding: 15px;">
+                   <h2 style="text-align: center;">Add a Supplier</h2>
+                   <div class="close_popup_btn" onClick="close_popup('#custom_supplier_popup');"><img height=22 src="img/cancel.svg"></div>
+                   <button style="position:fixed; top:10px; left:10px; opacity:0"></button>
+                   <!-- <div  onClick="pickCustomSupplierFromContact();" class="send_q_btn sign-in-popup add_from_contact"><i>Add From Contacts</i></div> -->
+                   <form name="from_custom_supplier_popup" id="from_custom_supplier_popup">
+                        <p>Here you can add any supplier you like, you will be able to add products on the next page and send your orders to them via email.</p>
+                        
+                        <div class="custom_supplier_input_icon"><img src="img/icons8-organization-32.png"></div>
+                        <input type="text" name="custom_supplier_company_name" placeholder="Supplier Company Name" class="custom_supplier_input" data-role="none" id="custom_supplier_company_name">
+                        <div class="clear_both">&nbsp;</div>
+                        
+                        <div class="custom_supplier_input_icon"><img src="img/icons8-phone-32.png"></div>
+                        <input type="tel" name="custom_supplier_phone" placeholder="Supplier Phone Number" class="custom_supplier_input" data-role="none" id="custom_supplier_phone">
+                        <div class="clear_both">&nbsp;</div>
+                        
+                        <div class="custom_supplier_input_icon"><img src="img/icons8-email-32.png"></div>
+                        <input type="email" name="custom_supplier_email" placeholder="Supplier Email Address" class="custom_supplier_input" data-role="none" id="custom_supplier_email">
+                        <div class="clear_both">&nbsp;</div>
+                        <div onClick="saveCustomSupplier('from_custom_supplier_popup');" class="popup_absolute_position_button send_q_btn sign-in-popup"><b>Done</b></div>
+                    </form>
+                </div>
+            </div>
+           
+
+        </div>
+        <!-- /content -->
+        <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div data-role="navbar" data-grid="d" class="custome_footer_new footer-shadow">
+                <ul>
+                    <li data-id="feed_page"><img  src="img/feed_icon_footer.png" title="Feed" alt="Feed">
+                        <p>Orders</p>
+                    </li>
+                    <li data-id="home_page"><img  src="img/home_icon_footer.png" title="Home" alt="Home">
+                        <p>Home</p>
+                    </li>
+                    <li data-id="suppliers_page" class="active_footer_tab"><img src="img/suppliers_icon_footer_active.png" title="Products" alt="Products">
+                        <p>Suppliers</p>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+        <!-- /footer -->
+
+    </div>
+    <!--SUPPLIER PAGE-->
+
+    <div data-role="page" id="supplier_home_page">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a style="z-index:1000;margin-top:10px;" class="ui-btn-left bars-button" onClick="goTO('suppliers_page');">
+                        <img src="img/backDark.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title" id="supplier_logo_top">LOGO HERE</span>
+                <div class="header_menu_envelope open_web_chat"><span class="chat_notification"></span><i class="fa fa-envelope fa-2x"></i></div>  
+                
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content supplier_page_conents">
+            <div class="search_bar_home">
+                <input type="text" class="search_products_value" value="" placeholder="">
+                <a href="#" class="search_icon search_suppliers_products_icon_header"><img src="img/search-icon-home.png" border="0"></a>
+            </div>
+            <div class="clear_both"></div>
+            <div class="search_contents"></div>
+            <div class="supplier_options">
+                <div id="all_products"   class="supplier_page_tabs" onClick="getCategory()">ALL PRODUCTS</div>
+                <div id="saved_products" class="supplier_page_tabs"   onClick="savedProductsList()" >MY SAVED PRODUCTS</div>
+                <div id="supplier_history" class="supplier_page_tabs" onClick="loadPrivousOrderProducts()">ORDERS</div>
+                <div id="cart_page_tab" class="supplier_page_tabs" onClick="goToCartPage()">CART</div>
+            </div>
+            <div id="supplier_page_contents">
+                <div data-role="collapsibleset" data-theme="a" data-content-theme="a" id="category_collaps">
+                </div>
+                <div id="products_listview_container">
+                    <ul data-role="listview" data-filter="true" data-filter-placeholder="Search" data-inset="true" id="products_listview" data-shadow="false"  data-corners="false">
+                    </ul>
+                </div>
+                <div id="supplier_products_search">
+                    <ul data-role="listview" data-filter="false" data-shadow="false"  data-corners="false" data-inset="true" id="supplier_products_listview_search">
+                    </ul>
+                </div>
+                <div  id="cart_page">
+                    <div class="cart-page-contents">
+                        <div class="minimum_shipping"></div>
+                        <div class="cart_outer_main">
+                            <div class="cart_html_main">
+                            </div>
+                            <div class="clear_both">&nbsp;</div>
+                            <div class="sub_total_div"></div>
+
+                        </div>
+
+                    </div>
+                    <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+                        <div id="multiple_checkout_div">
+                                <button style="position: relative;" class="next-step" onClick="goTO('checkout_page');">CHECKOUT</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="minimum_shipping progress-bar-container" id="minimum_shipping" onClick="openPopup()"></div>
+            </div>
+            <div data-role="popup" class="arrow_popup_demo" id="popupArrowfastCheckout" data-arrow="true">
+                <p>Tap the quick checkout icon to add the products to cart and checkout.</p>
+            </div>
+            <div data-role="popup" class="arrow_popup_demo" id="tooltipProductImage" data-arrow="true">
+                <p>Tap the product image to see a larger version of the image.</p>
+            </div>
+            <div data-role="popup" class="arrow_popup_demo" id="tooltipSlide" data-arrow="true">
+                <p>Slide your finger on the product from left to right increase the quantity and right to left decrease the quantity.</p>
+            </div>
+            <div data-role="popup" class="arrow_popup_demo" id="tooltipTapholdDelete" data-arrow="true">
+                <p>Tap and the hold on the product to open the remove from list button.</p>
+            </div>
+            <div data-role="popup" class="arrow_popup_demo" id="tooltipMoreDetails" data-arrow="true">
+                <p>Tap here to see more details of the product.</p>
+            </div>
+            <div data-role="popup" id="Gallery_image">
+                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <img class="popphoto" style="max-height:512px;">
+            </div>
+            <div data-role="popup" id="minimum_order_popup" data-arrow="true">
+                <div class="minimum-order-container">
+                    <div id="min_order_for_free" style="margin: 0;"></div>
+                    <div style="font-weight: 300;" id="supplier_min_amount_message"></div>
+                    <div id="supplier_how_much_left"></div>
+                    <div id="supplier_shipping_charge"></div>
+                </div>
+            </div>
+            <div data-role="popup" id="product_question">
+                <div class="product_question_popup">
+
+                    <div class="product_question_header">ASK A QUESTION ABOUT...</div>
+                    <div class="close_popup_btn" onClick="close_popup('#product_question')"><img height=22 src="img/cancel.svg"></div>
+
+                    <div id="product_name"></div>
+                    <div id="question_subject">
+                        <div class="question_subject" style="margin-top:20px;">I`M LOOKING FOR A SIMILAR ITEM</div>
+                        <div class="question_subject">I CAN`T FIND THE PRODUCT I WANT</div>
+                        <div class="question_subject">I WANT TO DISCUSS PRICING</div>
+                        <div class="question_subject">I WOULD LIKE TO SEE A SAMPLE</div>
+                        <div class="question_subject">CAN I GET A CREDIT APPLICATION?</div>
+                        <div class="question_subject">I WOULD LIKE A REP TO VISIT ME</div>
+                        <div class="question_subject">I WOULD LIKE A CALL BACK</div>
+                        <div class="question_subject">OTHER</div>
+                    </div>
+                    <div id="question_form">
+                        <div id="back_question_popup" class="back_btn"><img height=22 src="img/arrow_left.svg"></div>
+                        <div class="question_subject"></div>
+                        <button style="position:fixed; top:10px; left:10px; opacity:0"></button>
+                        <input type="text" class="customer_info" id="customer_name" placeholder="NAME">
+                        <input type="text" class="customer_info" id="customer_company" placeholder="COMPANY">
+                        <input type="text" class="customer_info" id="customer_mobile" placeholder="MOBILE">
+                        <textarea name="question_comments" id="question_comments" cols="1" rows="1" placeholder="ENTER COMMENTS..."></textarea>
+                        <div class="send_q_btn sign-in-popup" onClick="sendProductQuestion()">SEND</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /content -->
+    </div>
+    <!--SUPPLIER_INFO-->
+    <div data-role="page" id="supplier_info_page">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a style="z-index:1000;margin-top:10px;" class="ui-btn-left bars-button" onClick="goTO('home_page')">
+                        <img src="img/backDark.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title" id="supplier_info_logo_top">LOGO HERE</span>
+                <div class="header_menu_envelope open_web_chat"><span class="chat_notification"></span><i class="fa fa-envelope fa-2x"></i></div>
+
+                <div id="supplier_products" class="cart-count-header">
+                    <!--<div class="cart-count"></div>-->
+
+                </div>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content supplier_info_page_conents">
+
+            <div class="clear_both"></div>
+            <div id="supplier_info_contents">
+                <div class="supplier_info_logo">
+                    <img src="" alt="" />
+                </div>
+                <div class="supplier-footer">
+                    <div class="supplier-small-logo" id="supplier_info_sm_logo">
+                        <img src="">
+                    </div>
+                    <div class="supplier-info">
+                        <div class="supplier-title" id="suppplier_info_name"></div>
+                        <div class="supplier-descr" id="supplier_buisness_type"><img src="img/pointer.png">COFFEE, TEA AND ACCSESSORIES</div>
+                    </div>
+                    <div class="supplier-down-arrow"><img width=1 5 style="transform: rotateX(-180deg);" src="img/down-arrow.png"></div>
+                </div>
+                <div id="goto_supplier_from_supplier_page" style="float: right;"></div>
+                <div class="clear_both"></div>
+                <div class="supplier-info-descr">
+                    <div id="suppplier_info_desc_title"></div>
+                    <div id="supplier_info_desc"></div>
+                    <div id="supplier_info_desc_more"></div>
+                    <div class="readmore"><a href="javascript:void(0);" id="readSupInfoDesc">READ MORE</a></div>
+                </div>
+                <div id="supplier_customer_container">
+                    <div id="is_supplier_customer">
+                        <div id="supplier_customer_title"></div>
+                        <div id="supplier_customer_checkboxes">
+
+
+                            <div id="suppliers_customer" style="margin-right: 50px">
+                                <input type="radio" class="checkboxes-and-radios checkboxes-and-radios-form customer_supplier_checkbox" name="if_customer" value="true" />
+                                <span style="margin-left: 5px;">Yes</span>
+                            </div>
+                            <div id="no_suppliers_customer">
+                                <input type="radio" class="no_customer_supplier_checkbox checkboxes-and-radios checkboxes-and-radios-form" name="if_customer" value="false" /><span style="margin-left: 5px;">No</span>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div id="enter_customer_id">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div id="supplier_info_featured_products"></div>
+                <div id="supplier_info_footer">
+                    <div class="remove_add_btn"></div>
+                    <div class="request_btn">
+                        <div onClick="requestRep();">Request a Rep</div>
+                    </div>
+                    
+                </div>
+
+                
+            </div>
+            <div data-role="popup" id="request_rep">
+                <div class="product_question_popup">
+
+                    <div class="product_question_header">ASK A QUESTION ABOUT...</div>
+                    <div class="close_popup_btn" onClick="close_popup('#request_rep')"><img height=22 src="img/cancel.svg"></div>
+
+                    <div id="request_rep_subject">
+                        <div class="question_subject" style="margin-top:20px;">I`M LOOKING FOR A SIMILAR ITEM</div>
+                        <div class="question_subject">I CAN`T FIND THE PRODUCT I WANT</div>
+                        <div class="question_subject">I WANT TO DISCUSS PRICING</div>
+                        <div class="question_subject">I WOULD LIKE TO SEE A SAMPLE</div>
+                        <div class="question_subject">CAN I GET A CREDIT APPLICATION?</div>
+                        <div class="question_subject">I WOULD LIKE A REP TO VISIT ME</div>
+                        <div class="question_subject">I WOULD LIKE A CALL BACK</div>
+                        <div class="question_subject">OTHER</div>
+                    </div>
+                    <div id="request_rep_form">
+                        <div id="back_request_rep_popup" class="back_btn"><img height=22 src="img/arrow_left.svg"></div>
+                        <div class="question_subject"></div>
+                        <button style="position:fixed; top:10px; left:10px; opacity:0"></button>
+                        <input type="text" class="customer_info" id="request_rep_customer_name" placeholder="NAME">
+                        <input type="text" class="customer_info" id="request_rep_customer_company" placeholder="COMPANY">
+                        <input type="text" class="customer_info" id="request_rep_customer_mobile" placeholder="MOBILE">
+                        <textarea name="question_comments" id="request_rep_question_comments" cols="1" rows="1" placeholder="ENTER COMMENTS..."></textarea>
+                        <div class="send_q_btn sign-in-popup" onClick="sendRequestRep()">SEND</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /content -->
+    </div>
+    <!--Setting Page-->
+    <div data-role="page" id="setting">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a class="ui-btn-left bars-button" style="margin-top:10px;z-index:1000;" onClick="goTO('home_page')">
+                        <img src="img/backDark.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title one_zoo_logo"><img src="img/ONEzoo Logo Vector Black.png"></span>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content setting_conents" id="setting_conents">
+
+            <div class="clear_both"></div>
+            <div class="account-box-main">
+                <h2>Account <span class="logout" style="position:relative;top:-12px;" onClick="logoutME()"><img src="img/logout.png" data-transition="slide" alt="Logout" title="Logout">Logout</span></h2><span class="caret-img"></span>
+                <div class="sub_header_entry" data-type="manage_accounts">
+                    <div class="entry-name-welcomeuser">
+                        <div><img src="img/arrows.png"></div>
+                    </div>
+                </div>
+                <div class="clear_both"></div>
+                <div data-type="user_account" class="gridHome">
+                    <p><img src="img/account.png"><br>Update Account</p>
+                </div>
+                <div data-type="notification" class="gridHome">
+                    <p><img src="img/notification.png"><br>Push Notification</p>
+                </div>
+                <div data-type="manage_credit_card_page" class="gridHome">
+                    <p><img src="img/icons8-bank-cards-32.png"><br>Credit Cards</p>
+                </div>
+                <div data-type="manage_users" class="gridHome">
+                    <p><img src="img/manage_users.png.png"><br>Manage Users</p>
+                </div>
+                <div data-type="clear-cache-app" class="gridHome">
+                    <p><img src="img/ccleaner.png"><br>Clear Cache</p>
+                </div>
+
+            </div>
+        </div>
+        <!-- /content -->
+        <p class="version_number" style="text-align:-webkit-center;"></p>
+    </div>
+    <!--Notification Page-->
+    <div data-role="page" id="notification">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a class="ui-btn-left bars-button" style="margin-top:10px;z-index:1000;" onClick="goTO('setting')">
+                        <img src="img/backDark.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title one_zoo_logo"><img src="img/ONEzoo Logo Vector Black.png"></span>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content notification_conents" id="notification_conents">
+            <div class="account-box-main">
+                <h2>Push Notification</h2><span class="caret-img"></span>
+            </div>
+            <div class="clear_both"></div>
+            <form>
+                <div class="ui-field-contain">
+                    <label for="order_confirmation">Order Confirmation:</label>
+                    <select name="order_confirmation" id="order_confirmation" data-role="flipswitch" data-mini="true" data-corners="false" data-theme="b">
+                    <option value="off">Off</option>
+                    <option value="on">On</option>
+                </select>
+                </div>
+                <div class="ui-field-contain">
+                    <label for="payment_received">Payment:</label>
+                    <select name="payment_received" id="payment_received" data-role="flipswitch" data-mini="true" data-corners="false" data-theme="b">
+                    <option value="off">Off</option>
+                    <option value="on">On</option>
+                </select>
+                </div>
+                <div class="ui-field-contain">
+                    <label for="order_delivery">Order Delivery:</label>
+                    <select name="order_delivery" id="order_delivery" data-role="flipswitch" data-mini="true" data-corners="false" data-theme="b">
+                    <option value="off">Off</option>
+                    <option value="on">On</option>
+                </select>
+                </div>
+                <div class="ui-field-contain">
+                    <label for="order_day">Order Day:</label>
+                    <select name="order_day" id="order_day" data-role="flipswitch" data-mini="true" data-corners="false" data-theme="b">
+                    <option value="off">Off</option>
+                    <option value="on">On</option>
+                </select>
+                </div>
+                <div class="ui-field-contain alert_time_class" style="display:none; padding-left:10px;">
+                    <label>Order Alert Time: <span id="order_day_alert_time" style="color:#F00;">8:00 AM</span><a onClick="changeOderDayTime();"> Change</a></label>
+                </div>
+                <div class="ui-field-contain">
+                    <label for="permotional">Promotional:</label>
+                    <select name="permotional" id="permotional" data-role="flipswitch" data-mini="true" data-corners="false" data-theme="b">
+                    <option value="off">Off</option>
+                    <option value="on">On</option>
+                </select>
+                </div>
+                <div class="ui-field-contain">
+                    <label for="security">Security:</label>
+                    <select name="security" id="security" data-role="flipswitch" data-mini="true" data-corners="false" data-theme="b">
+                    <option value="off">Off</option>
+                    <option value="on">On</option>
+                </select>
+                </div>
+            </form>
+            <div data-role="popup" id="sup_join_notification" data-theme="a" class="ui-corner-all">
+                <div style="padding:10px 20px;">
+                    <h3>Request Supplier to Join</h3>
+                    <button style="position:fixed; top:10px; left:10px; opacity:0"></button>
+                    <label for="sup_name" class="ui-hidden-accessible">Supplier Name:</label>
+                    <input name="sup_name" id="sup_name" value="" placeholder="Supplier Name" data-theme="a" type="text">
+                    <label for="sup_company" class="ui-hidden-accessible">Company:</label>
+                    <input name="sup_company" id="sup_company" value="" placeholder="Supplier Company" data-theme="a" type="text">
+                    <label for="sup_email" class="ui-hidden-accessible">Email:</label>
+                    <input name="sup_email" id="sup_email" value="" placeholder="Email" data-theme="a" type="text">
+                    <button onClick="sendJoinRequest()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Send Join Request</button>
+                </div>
+            </div>
+        </div>
+        <!-- /content -->
+    </div>
+    <!--AddressBook Page-->
+    <div data-role="page" id="address_book">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="custome_header">
+                    <div class="header_menu">
+                        <a class="ui-btn-left bars-button" style="margin-top:10px;z-index:1000;" onClick="goBack();">
+                            <img src="img/backDark.png" border="0">
+                        </a>
+
+                    </div>
+                    <span class="page-title one_zoo_logo"><img src="img/ONEzoo Logo Vector Black.png"></span>
+                </div>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content address_book_conents" id="address_book_conents">
+            <div class="account-box-main">
+                <h2>Address Book</h2><span class="caret-img"></span>
+            </div>
+            <div class="clear_both"></div>
+            <div class="float_right">
+                <a onClick="addAddressBook();" data-inline="true" class="button_blue" data-role="button" data-mini="true" data-theme="b">Add New Address</a>
+            </div>
+            <ul data-role="listview" data-inset="true" id="address_book_listview" data-split-theme="a" data-split-icon="action">
+            </ul>
+            <div data-role="popup" id="sup_join_address_book" data-theme="a" class="ui-corner-all">
+                <div style="padding:10px 20px;">
+                    <h3>Request Supplier to Join</h3>
+                    <button style="position:fixed; top:10px; left:10px; opacity:0"></button>
+                    <label for="sup_name" class="ui-hidden-accessible">Supplier Name:</label>
+                    <input name="sup_name" id="sup_name" value="" placeholder="Supplier Name" data-theme="a" type="text">
+                    <label for="sup_company" class="ui-hidden-accessible">Company:</label>
+                    <input name="sup_company" id="sup_company" value="" placeholder="Supplier Company" data-theme="a" type="text">
+                    <label for="sup_email" class="ui-hidden-accessible">Email:</label>
+                    <input name="sup_email" id="sup_email" value="" placeholder="Email" data-theme="a" type="text">
+                    <button onClick="sendJoinRequest()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Send Join Request</button>
+                </div>
+            </div>
+        </div>
+        <!-- /content -->
+        <!-- /footer -->
+    </div>
+    <!--Add/Edit Address Book Page-->
+    <div data-role="page" id="add_edit_address_book">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a class="ui-btn-left bars-button" style="margin-top:10px;z-index:1000;" onClick="goBack();">
+                        <img src="img/backDark.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title one_zoo_logo"><img src="img/ONEzoo Logo Vector Black.png"></span>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content add_edit_address_book" id="add_edit_address_book_conents">
+            <div class="clear_both"></div>
+            <div class="error_user_data"></div>
+            <div class="account-box-main">
+                <h2>Please use the following form to create a new address to use for orders.</h2><span class="caret-img"></span>
+                <form name="address_book_form" id="address_book_form" class="form_address_book">
+                    <fieldset data-role="controlgroup" data-type="horizontal">
+                    
+                        <legend>Gender</legend>
+                        <input type="radio" name="gender_address" id="gender_add_a" value="m" data-mini="true">
+                        <label for="gender_add_a">Male</label>
+                        <input type="radio" name="gender_address" id="gender_add_b" value="f" data-mini="true">
+                        <label for="gender_add_b">Female</label>
+                    </fieldset>
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="firstname">First Name: <span>*</span></label>
+                    <input type="text" autocomplete="off" data-role="none" class="holo" name="firstname" id="firstname">
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="lastname">Last Name: <span>*</span></label>
+                    <input type="text" autocomplete="off" data-role="none" class="holo" name="lastname" id="lastname">
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="company">Company Name: <span>*</span></label>
+                    <input type="text" autocomplete="off" data-role="none" class="holo" name="company" id="company">
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="street_address">Street Address: <span>*</span></label>
+                    <input type="text" autocomplete="off" data-role="none" class="holo" name="street_address" id="street_address">
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="address_book_suburb">Suburb: <span>*</span></label>
+                    <input type="text" autocomplete="off" data-role="none" class="holo" name="suburb" id="address_book_suburb">
+                    <ul id="address_book_autocomplete_suburb" class="autocomplete_server" data-role="listview" data-inset="true" data-filter="true" data-input="#address_book_suburb"></ul>
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="address_book_postcode">Post code: <span>*</span></label>
+                    <input type="number" autocomplete="off" data-role="none" class="holo" name="postcode" id="address_book_postcode">
+                    <ul id="address_book_autocomplete_postcode" class="autocomplete_server" data-role="listview" data-inset="true" data-filter="true" data-input="#address_book_postcode"></ul>
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="state">State: <span>*</span></label>
+                    <input type="text" autocomplete="off" data-role="none" class="holo" name="state" id="state">
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="cntry">Country </label>
+                    <select data-mini="true" data-role="none" class="holo" name="country" id="cntry">
+                        <option value="13">Australia</option>
+                    </select>
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="state">Email Address: <span>*</span></label>
+                    <div class="clear_both">&nbsp;</div>
+                    <input type="text" autocomplete="off" data-role="none" class="holo" name="email_address" id="email_address">
+                
+                <!--<label for="state">Order Day:</label>
+                <fieldset data-role="controlgroup">
+                    <input type="checkbox" name="address_order_day[]" id="address_monday" value="Monday" ><label for="address_monday">Monday</label>
+                    <input type="checkbox" name="address_order_day[]" id="address_tuesday" value="Tuesday" ><label for="address_tuesday">Tuesday</label>
+                    <input type="checkbox" name="address_order_day[]" id="address_wednesday" value="Wednesday" ><label for="address_wednesday">Wednesday</label>
+                    <input type="checkbox" name="address_order_day[]" id="address_thursday" value="Thursday" ><label for="address_thursday">Thursday</label>
+                    <input type="checkbox" name="address_order_day[]" id="address_friday" value="Friday" ><label for="address_friday">Friday</label>
+                    <input type="checkbox" name="address_order_day[]" id="address_saturday" value="Saturday" ><label for="address_saturday">Saturday</label>
+                    <input type="checkbox" name="address_order_day[]" id="address_sunday" value="Sunday" ><label for="address_sunday">Sunday</label>
+                </fieldset>
+                <label for="state">Delivery Day:</label>
+                <fieldset data-role="controlgroup">
+                    <input type="checkbox" name="address_deliver_day[]" id="address_deliver_monday" value="Monday" ><label for="address_deliver_monday">Monday</label>
+                    <input type="checkbox" name="address_deliver_day[]" id="address_deliver_tuesday" value="Tuesday" ><label for="address_deliver_tuesday">Tuesday</label>
+                    <input type="checkbox" name="address_deliver_day[]" id="address_deliver_wednesday" value="Wednesday" ><label for="address_deliver_wednesday">Wednesday</label>
+                    <input type="checkbox" name="address_deliver_day[]" id="address_deliver_thursday" value="Thursday" ><label for="address_deliver_thursday">Thursday</label>
+                    <input type="checkbox" name="address_deliver_day[]" id="address_deliver_friday" value="Friday" ><label for="address_deliver_friday">Friday</label>
+                    <input type="checkbox" name="address_deliver_day[]" id="address_deliver_saturday" value="Saturday" ><label for="address_deliver_saturday">Saturday</label>
+                    <input type="checkbox" name="address_deliver_day[]" id="address_deliver_sunday" value="Sunday" ><label for="address_deliver_sunday">Sunday</label>
+                </fieldset>-->
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="make_primary_address">Make Primary Address: </label>
+                    <input type="checkbox" data-role="none" name="make_primary_address" class="custome_checkbox" id="make_primary_address" data-enhanced="true" value="1" style="float:left;">
+                    <span style="margin-left:10px;font-size: 14px;">Yes</span>
+                    <div class="clear_both">&nbsp;</div>
+                    <button onClick="processAddressBook('add_address_book');" class="button_blue width_95" type="button" data-theme="b" data-mini="true">Save</button>
+                    
+                </form>
+            </div>
+            <div data-role="popup" id="sup_join_add_edit_address_book" data-theme="a" class="ui-corner-all">
+                <div style="padding:10px 20px;">
+                    <h3>Request Supplier to Join</h3>
+                    <label for="sup_name" class="ui-hidden-accessible">Supplier Name:</label>
+                    <input name="sup_name" id="sup_name" value="" placeholder="Supplier Name" data-theme="a" type="text">
+                    <label for="sup_company" class="ui-hidden-accessible">Company:</label>
+                    <input name="sup_company" id="sup_company" value="" placeholder="Supplier Company" data-theme="a" type="text">
+                    <label for="sup_email" class="ui-hidden-accessible">Email:</label>
+                    <input name="sup_email" id="sup_email" value="" placeholder="Email" data-theme="a" type="text">
+                    <button onClick="sendJoinRequest()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Send Join Request</button>
+                </div>
+            </div>
+        </div>
+        <!-- /content -->
+
+      
+        <!-- /footer -->
+    </div>
+    <div data-role="page" id="user_account">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a style="z-index:1000;margin-top:10px;" class="ui-btn-left bars-button" onClick="goBack()">
+                        <img src="img/backDark.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title one_zoo_logo"><img src="img/ONEzoo Logo Vector Black.png"></span>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content">
+            <div class="clear_both"></div>
+            <div class="error_user_data"></div>
+            <form name="account_form" id="account_form">
+
+                <div class="checkout-box-main">
+                    <h2>Personal Info. <span class="logout" style="position:relative;top:-12px;" onClick="logoutME()"><img src="img/logout.png" data-transition="slide" alt="Logout" title="Logout">Logout</span></h2><span class="caret-img"></span>
+
+                    <label for="firstname">First Name: <span>*</span></label>
+                    <input type="text" name="firstname" id="firstname">
+                    <label for="lastname">Last Name: <span>*</span></label>
+                    <input type="text" name="lastname" id="lastname">
+                    <fieldset data-role="controlgroup" data-type="horizontal">
+                    
+                        <legend>Gender</legend>
+                        <input type="radio" name="gender" id="gender_a" value="m" data-mini="true">
+                        <label for="gender_a">Male</label>
+                        <input type="radio" name="gender" id="gender_b" value="f" data-mini="true">
+                        <label for="gender_b">Female</label>
+                    </fieldset>
+                    <label for="email">Email: <span>*</span></label>
+                    <input type="email" name="email" id="email" disabled>
+                    <label for="mobile">Mobile Number: </label>
+                    <input type="tel" name="mobile" id="mobile">
+                    <label for="customers_public_note">Public Note: </label>
+                    <textarea name="customers_public_note" id="customers_public_note"></textarea>
+
+                    <h2>Company Info.</h2><span class="caret-img"></span>
+                    <label for="address_type">Address Type:</label>
+                    <select id="address_type" name="address_type" data-mini="true" data-native-menu="true" onChange="addressTypeAction(this.value,'account_form');">
+                    <option value="1">Commmercial</option>
+                    <option value="2">Residential</option>
+                </select>
+                    <label for="company">Trading As (Shop Name): <span>*</span></label>
+                    <input type="text" name="company" id="company">
+                    <label for="industry_type">Company Type: <span>*</span></label>
+                    <select id="industry_type" name="industry_type" data-mini="true" data-native-menu="true">
+                    <option value="">Chose your company type</option>
+                    <option value="1">Bakery</option>
+                    <option value="2">Butchers</option>
+                    <option value="3">Cafe &amp; Sandwich Bar</option>
+                    <option value="4">Catering</option>
+                    <option value="5">Charcoal Chicken</option>
+                    <option value="6">Cleaners</option>
+                    <option value="7">Commercial Use</option>
+                    <option value="8">Deli</option>
+                    <option value="9">Fish &amp; Chips</option>
+                    <option value="10">Fishmonger</option>
+                    <option value="11">Hair, Nails &amp; Beauty</option>
+                    <option value="12">Burger Bars</option>
+                    <option value="13">Juice Bar and Coffee</option>
+                    <option value="14">Pizza</option>
+                    <option value="15">Poultry</option>
+                    <option value="16">Restaurant</option>
+                    <option value="17">Sushi &amp; Noodle</option>
+                    <option value="18">Takeaway Shop</option>
+                    <option value="20">Mechanics</option>
+                    <option value="21">Tattoo Parlour</option>
+                    <option value="22">Beauty Therapy</option>
+                    <option value="23">Retail Shop</option>
+                    <option value="24">Service Station</option>
+                    <option value="25">Nightclubs, Pubs and Bars</option>
+                    <option value="26">Candle Making</option>
+                    <option value="27">Vietnamese Pho</option>
+                    <option value="28">Sports Club</option>
+                    <option value="29">Child Care</option>
+                    <option value="30">Health Care</option>
+                    <option value="31">Hospital</option>
+                    <option value="32">Vet</option>
+                    <option value="33">Kinder and Schools</option>
+                    <option value="34">Mining</option>
+                    <option value="35">Tradies</option>
+                    <option value="37">Household Items</option>
+                </select>
+                    <label for="business_name" class="comerical_setting">Business Name: <span>*</span></label>
+                    <input type="text" name="business_name" class="comerical_setting" id="business_name">
+                    <div class="abn_search_div">
+                        <label for="abn_search" class="">ABN: <span>*</span></label>
+                        <input type="text" class="abn_search" name="abn_search">
+                        <a class="search_icon ui-link" href="javascript:void(0);" onClick="abn_search_list();"> <img border="0" src="img/search-icon.png"></a>
+                        <div class="abn_search_list"></div>
+                    </div>
+                    <div class="abn_num_div" style="display:none;">
+                        <label for="abn_num" class="">ABN: <span class="selected_abn"></span></label>
+                        <input type="hidden" class="abn_num_val_update" name="abn" id="abn">
+                        <a href="javascript:abn_research();" class="button_blue" style="margin-left:0;margin-bottom:10px;" data-mini="true" data-inline="true" data-role="button" data-theme="b">Edit ABN</a>
+                    </div>
+                    <label for="telephone">Telephone Number: <span>*</span></label>
+                    <input type="tel" name="telephone" id="telephone">
+                    <label for="mobile">Fax: </label>
+                    <input type="tel" name="fax" id="fax">
+
+                    <p>&nbsp;</p>
+
+                    <h2>Address Info.</h2><span class="caret-img"></span>
+                    <label class=""> Are you located in a shopping center?</label>
+                    <fieldset data-role="controlgroup" data-type="horizontal" class="">
+                        <label for="located_center_a">Yes</label>
+                        <input type="radio" name="located_center" id="located_center_a" value="Yes" data-mini="true" onChange="messageCenterAction(this.value,'account_form');">
+                        <input type="radio" name="located_center" id="located_center_b" value="No" data-mini="true" onChange="messageCenterAction(this.value,'account_form');">
+                        <label for="located_center_b">No</label>
+                    </fieldset>
+                    <label for="account_form_center_search" class="center_manage">Center: <span>*</span></label>
+                    <input type="hidden" class="center_manage" name="center" id="center">
+                    <input type="text" class="center_manage" name="center_search" id="account_form_center_search" placeholder="Search a center">
+                    <ul id="account_form_account_autocomplete_center" data-role="listview" class="autocomplete_server center_manage" data-inset="true" data-filter="true" data-input="#account_form_center_search"></ul>
+                    <label for="shop" class="center_manage_select">Shop No: <span>*</span></label>
+                    <input type="text" class="center_manage_select" name="shop" id="shop" placeholder="">
+                    <label for="level" class="center_manage_select">What levels you are on:</label>
+                    <input type="text" class="center_manage_select" name="level" id="level" placeholder="">
+                    <label for="best_entry" class="center_manage_select">Best entry:</label>
+                    <input type="text" class="center_manage_select" name="best_entry" id="best_entry" placeholder="">
+                    <label for="loading_zone" class="center_manage_select">Closest Loading Zone:</label>
+                    <input type="text" class="center_manage_select" name="loading_zone" id="loading_zone" placeholder="">
+                    <label for="info" class="center_manage_select">Other Information:</label>
+                    <label for="street_address">Address: <span>*</span></label>
+                    <input type="text" name="street_address" id="street_address">
+                    <label for="account_form_suburb">Suburb: <span>*</span></label>
+                    <input type="text" name="suburb" id="account_form_suburb">
+                    <ul id="account_form_account_autocomplete_suburb" class="autocomplete_server" data-role="listview" data-inset="true" data-filter="true" data-input="#account_form_suburb"></ul>
+                    <label for="account_form_postcode">Post code: <span>*</span></label>
+                    <input type="number" name="postcode" id="account_form_postcode">
+                    <ul id="account_form_account_autocomplete_postcode" class="autocomplete_server" data-role="listview" data-inset="true" data-filter="true" data-input="#account_form_postcode"></ul>
+                    <label for="state">State: <span>*</span></label>
+                    <input type="text" name="state" id="state">
+                    <input type="hidden" name="city" id="city">
+                    <fieldset data-role="controlgroup">
+                        <legend>When do you prefer your delivery ?</legend>
+                        <input type="radio" name="dt2" id="e_morning" value="e_morning" data-mini="true">
+                        <label for="e_morning">Early Morning (5am - 7am)</label>
+                        <input type="radio" name="dt2" id="morning" value="morning" data-mini="true">
+                        <label for="morning">Morning (7am - 11am)</label>
+                        <input type="radio" name="dt2" id="lunch" value="lunch" data-mini="true">
+                        <label for="lunch">Lunch (11am - 2pm)</label>
+                        <input type="radio" name="dt2" id="a_noon" value="a_noon" data-mini="true">
+                        <label for="a_noon">After Noon (2pm - 5pm)</label>
+                        <input type="radio" name="dt2" id="late" value="late" data-mini="true">
+                        <label for="late">Late (5pm and later)</label>
+                    </fieldset>
+                    <div class="comerical_setting">
+                        <p class="op_heading"><strong>Company operating times</strong><br>Please help us ensure your delivery reaches you quickly by filling in this information, without it we may attempt to deliver when you are closed</p>
+                        <input type="checkbox" data-role="none" name="day[0]" id="monday" value="Monday" class="custome_checkbox" onClick="show(this.id,'account_form')">
+                        <span>Monday</span>
+                        <div class="clear_both">&nbsp;</div>
+                        <div class="monday hide_op">
+                            <input name="from[]" id="input_from_monday" placeholder="Open 1" type="number" maxlength="5">
+                        </div>
+                        <div class="monday hide_op">
+                            <select name="from_ampm[]" id="select_from_monday">
+                            <option value="am">am</option>
+                            <option value="pm">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="monday hide_op"><input name="to[]" id="input_to_monday" type="number" placeholder="Close 1" maxlength="5"></div>
+                        <div class="monday hide_op">
+                            <select name="to_ampm[]" id="select_to_monday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="monday hide_op"><input name="from1[]" id="input_from1_monday" type="number" placeholder="Open 2" maxlength="5" value=""></div>
+                        <div class="monday hide_op">
+                            <select name="from1_ampm[]" id="select_from1_monday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="monday hide_op"><input name="to1[]" type="number" id="input_to1_monday" placeholder="Close 2" maxlength="5" value=""></div>
+                        <div class="monday hide_op">
+                            <select name="to1_ampm[]" id="select_to1_monday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <input type="checkbox" data-role="none" name="day[1]" id="tuesday" value="Tuesday" class="custome_checkbox" onClick="show(this.id,'account_form')">
+                        <span>Tuesday</span>
+                        <div class="clear_both">&nbsp;</div>
+                        <div class="tuesday hide_op">
+                            <input name="from[]" placeholder="Open 1" id="input_from_tuesday" type="number" maxlength="5">
+                        </div>
+                        <div class="tuesday hide_op">
+                            <select name="from_ampm[]" id="select_from_tuesday">
+                            <option value="am">am</option>
+                            <option value="pm">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="tuesday hide_op"><input name="to[]" id="input_to_tuesday" type="number" placeholder="Close 1" maxlength="5"></div>
+                        <div class="tuesday hide_op">
+                            <select name="to_ampm[]" class="drop_down_img" id="select_to_tuesday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="tuesday hide_op"><input name="from1[]" id="input_from1_tuesday" type="number" placeholder="Open 2" maxlength="5" value=""></div>
+                        <div class="tuesday hide_op">
+                            <select name="from1_ampm[]" id="select_from1_tuesday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="tuesday hide_op"><input name="to1[]" id="input_to1_tuesday" type="number" placeholder="Close 2" maxlength="5" value=""></div>
+                        <div class="tuesday hide_op">
+                            <select name="to1_ampm[]" id="select_to1_tuesday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <input type="checkbox" data-role="none" name="day[2]" id="wednesday" value="Wednesday" class="custome_checkbox" onClick="show(this.id,'account_form')">
+                        <span>Wednesday</span>
+                        <div class="clear_both">&nbsp;</div>
+                        <div class="wednesday hide_op">
+                            <input name="from[]" placeholder="Open 1" id="input_from_wednesday" type="number" maxlength="5">
+                        </div>
+                        <div class="wednesday hide_op">
+                            <select name="from_ampm[]" id="select_from_wednesday">
+                            <option value="am">am</option>
+                            <option value="pm">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="wednesday hide_op"><input name="to[]" id="input_to_wednesday" type="number" placeholder="Close 1" maxlength="5"></div>
+                        <div class="wednesday hide_op">
+                            <select name="to_ampm[]" id="select_to_wednesday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="wednesday hide_op"><input name="from1[]" id="input_from1_wednesday" type="number" placeholder="Open 2" maxlength="5" value=""></div>
+                        <div class="wednesday hide_op">
+                            <select name="from1_ampm[]" id="select_from1_wednesday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="wednesday hide_op"><input name="to1[]" id="input_to_wednesday" type="number" placeholder="Close 2" maxlength="5" value=""></div>
+                        <div class="wednesday hide_op">
+                            <select name="to1_ampm[]" id="select_to1_wednesday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <input type="checkbox" data-role="none" name="day[3]" id="thursday" value="Thursday" class="custome_checkbox" onClick="show(this.id,'account_form')">
+                        <span>Thursday</span>
+                        <div class="clear_both">&nbsp;</div>
+                        <div class="thursday hide_op">
+                            <input name="from[]" placeholder="Open 1" id="input_from_thursday" type="number" maxlength="5">
+                        </div>
+                        <div class="thursday hide_op">
+                            <select name="from_ampm[]" id="select_from_thursday">
+                            <option value="am">am</option>
+                            <option value="pm">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="thursday hide_op"><input name="to[]" id="input_to_thursday" type="number" placeholder="Close 1" maxlength="5"></div>
+                        <div class="thursday hide_op">
+                            <select name="to_ampm[]" id="select_to_thursday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="thursday hide_op"><input name="from1[]" id="input_from1_thursday" type="number" placeholder="Open 2" maxlength="5" value=""></div>
+                        <div class="thursday hide_op">
+                            <select name="from1_ampm[]" id="select_from1_thursday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="thursday hide_op"><input name="to1[]" id="input_to1_thursday" type="number" placeholder="Close 2" maxlength="5" value=""></div>
+                        <div class="thursday hide_op">
+                            <select name="to1_ampm[]" id="input_to1_thursday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <input type="checkbox" data-role="none" name="day[4]" id="friday" value="Friday" class="custome_checkbox" onClick="show(this.id,'account_form')">
+                        <span>Friday</span>
+                        <div class="clear_both">&nbsp;</div>
+                        <div class="friday hide_op">
+                            <input name="from[]" placeholder="Open 1" id="input_from_friday" type="number" maxlength="5">
+                        </div>
+                        <div class="friday hide_op">
+                            <select name="from_ampm[]" id="select_from_friday">
+                            <option value="am">am</option>
+                            <option value="pm">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="friday hide_op"><input name="to[]" id="input_to_friday" type="number" placeholder="Close 1" maxlength="5"></div>
+                        <div class="friday hide_op">
+                            <select name="to_ampm[]" id="select_to_friday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="friday hide_op"><input name="from1[]" id="input_from1_friday" type="number" placeholder="Open 2" maxlength="5" value=""></div>
+                        <div class="friday hide_op">
+                            <select name="from1_ampm[]" id="select_from1_friday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="friday hide_op"><input name="to1[]" id="input_to1_friday" type="number" placeholder="Close 2" maxlength="5" value=""></div>
+                        <div class="friday hide_op">
+                            <select name="to1_ampm[]" id="select_to1_friday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <input type="checkbox" data-role="none" name="day[5]" id="saturday" value="Saturday" class="custome_checkbox" onClick="show(this.id,'account_form')">
+                        <span>Saturday</span>
+                        <div class="clear_both">&nbsp;</div>
+                        <div class="saturday hide_op">
+                            <input name="from[]" placeholder="Open 1" id="input_from_saturday" type="number" maxlength="5">
+                        </div>
+                        <div class="saturday hide_op">
+                            <select name="from_ampm[]" id="select_from_saturday">
+                            <option value="am">am</option>
+                            <option value="pm">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="saturday hide_op"><input name="to[]" id="input_to_saturday" type="number" placeholder="Close 1" maxlength="5"></div>
+                        <div class="saturday hide_op">
+                            <select name="to_ampm[]" id="select_to_saturday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="saturday hide_op"><input name="from1[]" id="input_from1_saturday" type="number" placeholder="Open 2" maxlength="5" value=""></div>
+                        <div class="saturday hide_op">
+                            <select name="from1_ampm[]" id="select_from1_saturday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+						</select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="saturday hide_op"><input name="to1[]" id="input_to1_saturday" type="number" placeholder="Close 2" maxlength="5" value=""></div>
+                        <div class="saturday hide_op">
+                            <select name="to1_ampm[]" id="select_to1_saturday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <input type="checkbox" data-role="none" name="day[6]" id="sunday" value="Sunday" class="custome_checkbox" onClick="show(this.id,'account_form')">
+                        <span>Sunday</span>
+                        <div class="clear_both">&nbsp;</div>
+                        <div class="sunday hide_op">
+                            <input name="from[]" placeholder="Open 1" id="input_from_sunday" type="number" maxlength="5">
+                        </div>
+                        <div class="sunday hide_op">
+                            <select name="from_ampm[]" id="select_from_sunday">
+                            <option value="am">am</option>
+                            <option value="pm">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="sunday hide_op"><input name="to[]" type="number" id="input_to_sunday" placeholder="Close 1" maxlength="5"></div>
+                        <div class="sunday hide_op">
+                            <select name="to_ampm[]" id="select_to_sunday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="sunday hide_op"><input name="from1[]" id="input_from1_sunday" type="number" placeholder="Open 2" maxlength="5" value=""></div>
+                        <div class="sunday hide_op">
+                            <select name="from1_ampm[]" id="select_from1_sunday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+
+                        </select>
+                        </div>
+                        <div class="clear_both"></div>
+                        <div class="sunday hide_op"><input name="to1[]" id="input_to1_sunday" type="number" placeholder="Close 2" maxlength="5" value=""></div>
+                        <div class="sunday hide_op">
+                            <select name="to1_ampm[]" id="select_to1_sunday">
+                            <option value="am">am</option>
+                            <option value="pm" selected="selected">pm</option>
+                        </select>
+                        </div>
+                        <div class="clear_both">&nbsp;</div>
+                    </div>
+                    <div><input type="checkbox" data-role="none" class="custome_checkbox"  name="agree" id="agree" data-enhanced="true" value="1" style="float:left;"><span style="margin-left:10px;font-size: 14px;">I have read and accept the <a data-role="none"  onClick="cordova.InAppBrowser.open('https://onezoo.com.au/terms', '_blank', 'location=yes');">terms and conditions</a> of registration</span>
+                    </div>
+
+                    <button onClick="accountProcess('account_form');" class="button_blue width_95" type="button" data-icon="check" data-theme="b" data-mini="true">Update Account</button>
+                </div>
+
+            </form>
+            <div data-role="popup" id="sup_join_user_account" data-theme="a" class="ui-corner-all">
+                <div style="padding:10px 20px;">
+                    <h3>Request Supplier to Join</h3>
+                    <label for="sup_name" class="ui-hidden-accessible">Supplier Name:</label>
+                    <input name="sup_name" id="sup_name" value="" placeholder="Supplier Name" data-theme="a" type="text">
+                    <label for="sup_company" class="ui-hidden-accessible">Company:</label>
+                    <input name="sup_company" id="sup_company" value="" placeholder="Supplier Company" data-theme="a" type="text">
+                    <label for="sup_email" class="ui-hidden-accessible">Email:</label>
+                    <input name="sup_email" id="sup_email" value="" placeholder="Email" data-theme="a" type="text">
+                    <button onClick="sendJoinRequest()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Send Join Request</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <!--Checkout Page Start From Here-->
+    <div data-role="page" id="checkout_page">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a style="z-index:1000;margin-top:10px;" class="ui-btn-left bars-button" onClick="goToCartPage();">
+                        <img src="img/backDark.png" border="0">
+                    </a>
+
+                </div>
+                <span class="page-title one_zoo_logo"><img src="img/ONEzoo Logo Vector Black.png"></span>
+            </div>
+        </div>
+        <!-- /header -->
+
+        <div role="main" class="ui-content">
+            <div class="supplier_logo supplier_logo_checkout"><img src="img/logo.png" border="0"></div>
+            <div class="checkout-box-main" id="checout_details">
+            </div>
+            <div data-role="popup" id="sup_join_checkout_page" data-theme="a" class="ui-corner-all">
+                <div style="padding:10px 20px;">
+                    <h3>Request Supplier to Join</h3>
+                    <label for="sup_name" class="ui-hidden-accessible">Supplier Name:</label>
+                    <input name="sup_name" id="sup_name" value="" placeholder="Supplier Name" data-theme="a" type="text">
+                    <label for="sup_company" class="ui-hidden-accessible">Company:</label>
+                    <input name="sup_company" id="sup_company" value="" placeholder="Supplier Company" data-theme="a" type="text">
+                    <label for="sup_email" class="ui-hidden-accessible">Email:</label>
+                    <input name="sup_email" id="sup_email" value="" placeholder="Email" data-theme="a" type="text">
+                    <button onClick="sendJoinRequest()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Send Join Request</button>
+                </div>
+            </div>
+            <div data-role="popup" id="missing_info_popup" data-dismissible="false" data-theme="a" class="ui-corner-all">
+                <div style="padding:10px 20px;">
+                    <h3>You need to fill in missing information</h3>
+                    <button onClick="updateAcc()" class="ui-btn ">Ok</button>
+                    <button onClick="close_popup('#missing_info_popup')" class="ui-btn ">Cancel</button>
+                </div>
+            </div>
+            <div data-role="popup" id="email_verify_popup" data-dismissible="false" data-theme="a" class="ui-corner-all">
+                <div style="padding:10px 20px;">
+                    <h3 id="verify_popup_text"></h3>
+                    <button onClick="checkOut();goTO('checkout_page');" class="ui-btn ">I have verfied my email</button>
+                    <button onClick="verifyEmail()" class="ui-btn ">Resend </button>
+                    <button onClick="goTO('home_page');" class="ui-btn ">Cancel </button>
+                </div>
+            </div>
+            <button class="next-step" id="back_from_cart" onClick="goTO('home_page');">DONE</button>
+        </div>
+        <!-- /content -->
+    </div>
+    <!--Login Page Start From Here-->
+    <div data-role="page" id="user_login">
+        <div data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="header_menu">
+                <a style="margin-top:10px;z-index:1000;" class="ui-btn-left" onClick="backtoSlider();"  data-transition="none">
+                    <img src="img/backDark.png" alt="">
+                </a>
+            </div>
+            <div class="store_logo_second">
+                <h1>LOGIN</h1>
+            </div>
+          
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content">
+
+            <div class="logo-login">
+                <img src="img/LogIn.png" alt="">
+            </div>
+
+            <form id="form_login" method="post" onSubmit="return false;">
+                <ul data-role="listview" data-inset="true">
+                    <li class="fieldcontain first-login-li">
+                        <input placeholder="Email Address" type="email" name="user_email" id="user_email" data-mini="true">
+                    </li>
+                    <li class="fieldcontain second-login-li">
+
+                        <input placeholder="Password" type="password" name="user_password" id="user_password" data-mini="true">
+                    </li>
+                    <li class="login-buttons">
+                        <p class="float_right" id="forgot_password">Forgot Password?</p>
+                        <button onClick="userValidate();" class="width_95" type="button" id="r" data-theme="b" data-mini="true">Login</button>
+                    </li>
+
+                </ul>
+            </form>
+            <a href="#upgrade_popup_user_login" id="upgrade_me_button_user_login" data-rel="popup" data-position-to="window" data-transition="pop" style="display:none;">Open Upgrade Popup</a>
+            <div data-role="popup" id="upgrade_popup_user_login" data-theme="a" class="ui-corner-all">
+                <div style="padding:10px 20px;">
+                    <p class="upgrade_message">Our app is changing to ONEzoo, but requires a quick update. Please click the update button below so you can enjoy all our new features.</p>
+                    <button onclick="return update_application();" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Update now</button>
+                    <button onClick="return remind_update_appliacation_later();" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Remind me later</button>
+                </div>
+            </div>
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+
+    <div data-role="page" id="forgot_password_page">
+       <div data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="header_menu">
+                <a style="margin-top:10px;z-index:1000;" class="ui-btn-left" onclick="goTO('user_login');" data-transition="none">
+                    <img src="img/backDark.png" alt="">
+                </a>
+            </div>
+            <div class="store_logo_second">
+                <h1>RESET PASSWORD</h1>
+            </div>
+        </div>
+
+        <div role="main" class="ui-content">
+
+            <div class="reset-password-title">
+                <h1>FORGOT PASSWORD?</h1>
+                <h3>To reset your password, please enter your email address below</h3>
+            </div>
+
+            <form method="post" onSubmit="return false;">
+                <ul data-role="listview" data-inset="true">
+                    <li class="fieldcontain">
+                        <input type="email" placeholder="Email Address" name="forgot_user_email" id="forgot_user_email" data-mini="false">
+                    </li>
+                    <li class="fieldcontain">
+                        <fieldset class="ui-grid-a">
+                            <button onClick="forgotPasswordRequest();" id="reset-button" type="button" data-theme="b" data-mini="true" class="width_50 button-reset-password">RESET</button>
+                        </fieldset>
+                    </li>
+                </ul>
+            </form>
+
+            <p id="time_left"></p>
+            <button onClick="forgotPasswordRequest();" id="resend-button" type="button" data-theme="b" data-mini="true" class="width_50 button-reset-password" style="background-color:transparent !important;color:#FFC746 !important;font-weight:600;" disabled="true">RESEND</button>
+        </div>
+        <!-- /content -->
+    </div>
+
+    <div data-role="page" id="change_password_page">
+
+        <div data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="store_logo_second"><img src="img/logo.png" alt="Gloveman" title="Gloveman"></div>
+        </div>
+        <!-- /header -->
+
+        <div role="main" class="ui-content">
+            <div class="sub_header">
+                <div class="cart-title">Change Password</div>
+                <div class="clear_both"></div>
+            </div>
+            <form method="post" onSubmit="return false;">
+                <ul data-role="listview" data-inset="true">
+                    <li class="fieldcontain">
+                        <label for="forgot_user_email" class>Email Address: <span>*</span></label>
+                        <input type="email" name="change_user_email" id="change_user_email" data-mini="false">
+                    </li>
+                    <li class="fieldcontain">
+                        <label for="change_user_code" class>Pincode/Password: <span>*</span> <a id="request_pincode">Request a Pincode</a></label>
+                        <input type="text" name="change_user_code" id="change_user_code" data-mini="false">
+                    </li>
+                    <li class="fieldcontain">
+                        <label for="chnage_new_password" class>New Password: <span>*</span></label>
+                        <input type="password" name="chnage_new_password" id="chnage_new_password" data-mini="false">
+                    </li>
+                    <li class="fieldcontain">
+                        <label for="chnage_repeat_password" class>Repeat Password: <span>*</span></label>
+                        <input type="password" name="chnage_repeat_password" id="chnage_repeat_password" data-mini="false">
+                    </li>
+
+                    <li class="fieldcontain">
+                        <button onClick="changePasswordRequest('change');" type="button" data-icon="lock" data-theme="b" data-mini="true" class="button_blue width_95">Change Password</button> </li>
+                    <li data-role="fieldcontain">
+                        <div class="signup_link">
+                            <a href="#user_login" data-transition="slide">User Login</a>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <!-- /content -->
+
+    </div>
+
+    <div data-role="page" id="reset_pincode_page">
+        <div data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="header_menu">
+                <a style="margin-top:10px;z-index:1000;" class="ui-btn-left" onclick="goTO('forgot_password_page');" data-transition="none">
+                    <img src="img/backDark.png" alt="">
+                </a>
+            </div>
+            <div class="store_logo_second">
+                <h1>PIN NUMBER</h1>
+            </div>
+        </div>
+
+        <div role="main" class="ui-content">
+
+            <div class="reset-password-title">
+                <h3>Please enter the pin number which was sent to <span class="email-address-forgot-password"></span>, please check your spam folder if it isn't in your inbox</h3>
+            </div>
+
+            <form method="post" onSubmit="return false;">
+                <ul data-role="listview" data-inset="true">
+                    <li class="fieldcontain">
+                        <input type="number" placeholder="Enter PIN" name="change_user_pincode" id="change_user_pincode" data-mini="false">
+                    </li>
+                    <li class="fieldcontain">
+                        <fieldset class="ui-grid-a">
+                            <button onClick="verifyPincodeRequest();" type="button" data-theme="b" data-mini="true" class="width_50 button-reset-password">SUBMIT</button>
+                        </fieldset>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <!-- /content -->
+
+    </div>
+
+    <div data-role="page" id="reset_password_page">
+        <div data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="header_menu">
+                <a style="margin-top:10px;z-index:1000;" class="ui-btn-left" onclick="goTO('reset_pincode_page');" data-transition="none">
+                    <img src="img/backDark.png" alt="">
+                </a>
+            </div>
+            <div class="store_logo_second">
+                <h1>RESET PASSWORD</h1>
+            </div>
+        </div>
+
+        <div role="main" class="ui-content">
+
+            <div class="reset-password-title">
+                <h1>SET NEW PASSWORD</h1>
+            </div>
+
+            <form method="post" onSubmit="return false;">
+                <ul data-role="listview" data-inset="true">
+                    <li class="fieldcontain no-padding-top">
+                        <input type="password" placeholder="New Password" name="chnage_new_password" id="change_new_password" data-mini="false">
+                    </li>
+                    <li class="fieldcontain">
+                        <input type="password" placeholder="Confirm Password" name="chnage_repeat_password" id="change_repeat_password" data-mini="false">
+                    </li>
+                    <li class="fieldcontain no-padding-bottom">
+                        <fieldset class="ui-grid-a">
+                            <button onClick="changePasswordRequest('forgot');" type="button" data-theme="b" data-mini="true" class="width_50 button-reset-password">SAVE</button>
+                        </fieldset>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <!-- /content -->
+
+
+    </div>
+
+    <div data-role="page" id="user_singup">
+        <div data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+             <div class="header_menu">
+                <a style="margin-top:10px;z-index:1000;" onClick="goBack();" class="ui-btn-left back-to-slider-signup" data-transition="none">
+                    <img src="img/backDark.png" alt="">
+                </a>
+            </div>
+            <div class="store_logo_second">
+                <h1>Update Account</h1>
+            </div>
+
+        </div>
+        <div role="main" class="ui-content">
+            <div class="clear_both"></div>
+            <form name="singup_form" id="singup_form">
+
+
+                <div class="checkout-box-main">
+                    <div class="clear_both" style="padding-top:10px;"></div>
+                    <div>
+                        <label for="singup_firstname">First Name</label>
+                        <input type="text" name="firstname" id="singup_firstname">
+                    </div>
+                    <div class="clear_both" style="padding-top:10px;"></div>
+                    <div>
+                        <label for="singup_lastname">Last Name</label>
+                        <input type="text" name="lastname" id="singup_lastname">
+                    </div>
+                    <div class="clear_both" style="padding-top:10px;"></div>
+                    <div>
+                        <label for="singup_email">Email Address</label>
+                        <input type="email" name="email" id="singup_email">
+                    </div>
+                    <div class="clear_both" style="padding-top:10px;"></div>
+                    <div>
+                        <label for="singup_mobile">Mobile Number</label>
+                        <input type="tel" name="mobile" id="singup_mobile">
+                    </div>
+                    <div class="clear_both" style="padding-top:10px;"></div>
+                    <!--
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" >
+                </div>
+-->
+                    <div class="clear_both" style="padding-top:10px;padding-bottom:30px;"></div>
+                </div>
+            </form>
+        </div>
+        <!-- /content -->
+        <button onClick="createAccountFirstPageValidation('singup_form')" class="next-step">NEXT</button>
+    </div>
+    <div data-role="page" id="user_singup_company">
+        <div  data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="header_menu">
+                <a style="z-index:1000;margin-top:10px;" class="ui-btn-left bars-button go-back-arrow" onClick="goBack();"> <img src="img/backDark.png" border="0"></a>
+            </div>
+            <div class="store_logo_second" style="text:align:center;">
+                <h2>UPDATE COMPANY DETAILS</h2>
+            </div>
+        </div>
+        <!-- /header -->
+
+        <div role="main" class="ui-content">
+            <div class="clear_both"></div>
+            <form name="singup_form_company" id="singup_form_company">
+                <div class="checkout-box-main">
+                    <div class="clear_both">&nbsp;</div>
+                    <input type="hidden" name="business_name" class="comerical_setting" id="singup_business_name">
+                    <div class="abn_search_div">
+                        <input placeholder="Search your Business Name or ABN" type="text" class="abn_search comerical_setting abn_keyboard_search" name="abn_search">
+                        <a class="search_icon ui-link" href="javascript:void(0);" onClick="abn_search_list();"> <i class="fa fa-search" aria-hidden="true"></i></a>
+                        <div class="abn_search_list"></div>
+                    </div>
+                    <div class="abn_num_div" style="display:none;">
+                        <label for="abn_num" class="comerical_setting">ABN :  <span class="selected_abn"></span></label>
+                        <input type="hidden" class="comerical_setting abn_num_val" name="abn" id="abn_num">
+                        <a href="javascript:abn_research();" class="button_blue" style="margin-left:0;margin-bottom:10px;" data-mini="true" data-inline="true" data-role="button" data-theme="b">Edit ABN</a>
+                    </div>
+                    <div class="clear_both">&nbsp;</div>
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="singup_company">Trading As (Shop Name)</label>
+                    <input type="text" name="singup_company" id="singup_company">
+                    <div class="company_type_div">
+                        <label for="singup_industry_type">Company Type</label>
+                        <select id="singup_industry_type" name="industry_type" data-mini="true" data-native-menu="true">
+                        <option value="">Chose your company type</option>
+                        <option value="1">Bakery</option>
+                        <option value="2">Butchers</option>
+                        <option value="3">Cafe &amp; Sandwich Bar</option>
+                        <option value="4">Catering</option>
+                        <option value="5">Charcoal Chicken</option>
+                        <option value="6">Cleaners</option>
+                        <option value="7">Commercial Use</option>
+                        <option value="8">Deli</option>
+                        <option value="9">Fish &amp; Chips</option>
+                        <option value="10">Fishmonger</option>
+                        <option value="11">Hair, Nails &amp; Beauty</option>
+                        <option value="12">Burger Bars</option>
+                        <option value="13">Juice Bar and Coffee</option>
+                        <option value="14">Pizza</option>
+                        <option value="15">Poultry</option>
+                        <option value="16">Restaurant</option>
+                        <option value="17">Sushi &amp; Noodle</option>
+                        <option value="18">Takeaway Shop</option>
+                        <option value="20">Mechanics</option>
+                        <option value="21">Tattoo Parlour</option>
+                        <option value="22">Beauty Therapy</option>
+                        <option value="23">Retail Shop</option>
+                        <option value="24">Service Station</option>
+                        <option value="25">Nightclubs, Pubs and Bars</option>
+                        <option value="26">Candle Making</option>
+                        <option value="27">Vietnamese Pho</option>
+                        <option value="28">Sports Club</option>
+                        <option value="29">Child Care</option>
+                        <option value="30">Health Care</option>
+                        <option value="31">Hospital</option>
+                        <option value="32">Vet</option>
+                        <option value="33">Kinder and Schools</option>
+                        <option value="34">Mining</option>
+                        <option value="35">Tradies</option>
+                        <option value="37">Household Items</option>
+                    </select>
+                    </div>
+
+                    <div class="no-border-bottom">
+                        <label for="account_form_center_search" class="center_manage">Center</label>
+                        <input type="text" class="center_manage" name="center_search" id="singup_form_center_search" placeholder="Search a center">
+                        <input type="hidden" class="center_manage" name="center" id="singup_center">
+                    </div>
+                    <ul id="singup_form_account_autocomplete_center" data-role="listview" class="center_manage autocomplete_server" data-inset="true" data-filter="true" data-input="#singup_form_center_search"></ul>
+                    <input type="hidden" name="city" id="singup_form_city">
+                    <label for="singup_street_address">Address</label>
+                    <input type="text" name="street_address" id="singup_street_address">
+                    <label for="singup_form_suburb">Suburb</label>
+                    <input type="text" name="suburb" id="singup_form_suburb">
+                    <ul id="singup_form_account_autocomplete_suburb" class="autocomplete_server" data-role="listview" data-inset="true" data-filter="true" data-input="#singup_form_suburb"></ul>
+                    <label for="singup_form_postcode">Post code</label>
+                    <input type="number" name="postcode" id="singup_form_postcode">
+                    <ul id="singup_form_account_autocomplete_postcode" class="autocomplete_server" data-role="listview" data-inset="true" data-filter="true" data-input="#singup_form_postcode"></ul>
+                    <div style="display:none;" class="postcode_alert alert alert-error">Please be aware when you change your postcode your minimum order amounts and available suppliers may change.</div>
+                    <label for="singup_state">State</label>
+                    <input type="text" name="state" id="singup_state">
+                    <label for="singup_telephone">Phone number </label>
+                    <input type="text" name="singup_telephone" id="singup_telephone">
+                    <div class="clear_both">&nbsp;</div>
+
+
+                </div>
+            </form>
+
+        </div>
+        <!-- /content -->
+        <button class="next-step" onClick="accountProcess('singup_form_company', true);">UPDATE ACCOUNT</button>
+    </div>
+
+    <div data-role="page" id="invite_supplier">
+        <div data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="store_logo_second" style="text:align:center;">
+                <h1>INVITE SUPPLIER</h1>
+            </div>
+        </div>
+        <!-- /header -->
+        <div class="invite-supplier-info">
+            <h2 style="text-align:center;color:black;"><b>Invite your Suppliers</b></h2>
+            <h3 style="text-align: center;color: #AFAFAF;font-weight: 100;padding: 0px 70px;font-weight: normal;
+">Bringing in your current suppliers will give you complete control over your ordering. Select your current suppliers and we will ask them to join ONEzoo.</h3>
+            <div class="clear_both">&nbsp;</div>
+            <button class="plus-button-click plus-btn"><img src="img/plus-25x25.png"></button>
+        </div>
+        <button class="next-step"><a href="#popupSkipInvite" style="display:block;width:100%;color:white;text-decoration:none;" data-rel="popup" class="open-modal" data-position-to="window" data-transition="pop">SKIP</a></button>
+        <button class="next-step" onClick="goBack();" id="invite_suppliers_back_btn">BACK</button>
+        <div data-role="popup" id="popupSkipInvite" data-theme="a" data-overlay-theme="b" data-position="fixed" class="ui-corner-all">
+            <div role="main" class="ui-content">
+                <h3 style="text-align: center;padding: 0 25px 0 25px;margin-top: 10px;margin-bottom: 15px;">Are you sure you dont want to invite any suppliers? Its free for them to join, and will save you both a lot of time!</h3>
+            </div>
+
+            <button type="submit" onClick="skipInviteFriends()" class="button-reset-password" style="font-size: 100%;width: 50%;margin: auto;margin-bottom: 15px;color: white;border-radius: 15px !important;">NO, I'LL DO IT LATER</button>
+            <button type="submit" class="button-reset-password plus-button-click" style="font-size: 100%;width: 50%;margin: auto;margin-bottom: 15px;color: white;border-radius: 15px !important;">YES, LETS ADD THEM</button>
+
+        </div>
+
+    </div>
+
+    <div data-role="page" id="invite_supplier_contacts">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <div class="header_menu">
+                    <a style="margin-top:10px;z-index:1000;" onClick="goBack();" class="ui-btn-left back-to-slider-signup" data-transition="none">
+                        <img src="img/backDark.png" alt="">
+                    </a>
+
+                </div>
+                <span class="page-title">INVITE SUPPLIER</span>
+                <div class="header_menu_envelope"><a style="color: #000;" data-role="none" href="#popupInvite" data-rel="popup" class="open-modal" data-position-to="window" data-transition="none"><i class="fa fa-address-book fa-2x"></i></a></div>
+            </div>
+        </div>
+        <!-- /header -->   
+
+        <div class="abn_search_div">
+            <input data-search placeholder="Search" type="search" class="comerical_setting" name="abn_search"><i class="fa fa-search" aria-hidden="true"></i>
+
+        </div>
+
+
+
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+
+
+        <div id="invite_supplier_content">
+            <div class="custom-pannel-inner search-list-inner" id="invite_supplier_search">
+            </div>
+        </div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+
+
+        <div data-role="popup" id="popupInvite" data-theme="a" data-overlay-theme="b" data-position="fixed" class="ui-corner-all">
+            <div style="width:100%;position: relative !important;" data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+                <div class="store_logo_second" style="text-align:center;width:100%;">
+                    <h1 style="width:100%;">INVITE SUPPLIER</h1>
+                </div>
+            </div>
+            <!-- /header -->
+            <h4 style="color: #B1B1B1;text-align:center;padding:0 20px 0 20px;">Enter your suppliers detail and we'll send them an invitation</h4>
+
+        
+            <div role="main" class="ui-content">
+                <form name="invite_form" id="invite_form">
+
+
+                    <div class="checkout-box-main">
+                        <div class="two-inputs">
+                            <label for="invite_name">NAME</label>
+                            <input type="text" name="name" id="invite_name">
+                        </div>
+                        <div class="two-inputs">
+                            <label for="invite_company">COMPANY NAME</label>
+                            <input type="text" name="compamy" id="invite_company">
+                        </div>
+                        <label for="invite_email">EMAIL ADDRESS</label>
+                        <input type="email" name="email" id="invite_email">
+                        <label for="invite_mobile">MOBILE NUMBER</label>
+                        <input type="tel" name="mobile" id="invite_mobile">
+                    </div>
+                </form>
+            </div>
+
+            <button type="submit" onClick="sendInvitation('invite_form')" class="button-reset-password" style="width: 50%;margin: auto;margin-bottom: 15px;color: white;border-radius: 15px !important;">SEND INVITATION</button>
+            <span style="text-align:center;" class="cancel-btn">CANCEL</span>
+        </div>
+
+        <br><br>
+        <button class="next-step send-sms-button" onClick="InviteSupplierAfterCheck();" style="position:fixed;display:block;left:0;width:50% !important;" disabled>INVITE</button>
+        <button class="next-step done-sms-button" onClick="openPopupDone();" style="position:fixed;right:0;display:block;width:50% !important;background-color: #67BA72 !important;" disabled>DONE
+       
+    </button>
+
+
+        <div data-role="popup" id="popupDone" data-theme="a" data-overlay-theme="b" data-position="fixed" class="ui-corner-all">
+
+        
+            <div role="main" class="ui-content">
+                <h3 style="text-align: center;padding: 0 25px 0 25px;margin-top: 10px;margin-bottom: 15px;">Are you sure you want to proceed with out inviting selected suppliers?</h3>
+            </div>
+
+            <button type="submit" onClick="skipInviteFriends()" class="button-reset-password" style="font-size: 100%;width: 50%;margin: auto;margin-bottom: 15px;color: white;border-radius: 15px !important;">NO, I'LL DO IT LATER</button>
+            <button type="submit" onClick="closePopupDone()" class="button-reset-password" style="font-size: 100%;width: 50%;margin: auto;margin-bottom: 15px;color: white;border-radius: 15px !important;">YES, LETS ADD THEM</button>
+
+        </div>
+
+
+        <div class="alphavite-search">
+            <a href="#a1">A</a>
+            <a href="#b1">B</a>
+            <a href="#c1">C</a>
+            <a href="#d1">D</a>
+            <a href="#e1">E</a>
+            <a href="#f1">F</a>
+            <a href="#g1">G</a>
+            <a href="#h1">H</a>
+            <a href="#i1">I</a>
+            <a href="#j1">J</a>
+            <a href="#k1">K</a>
+            <a href="#l1">L</a>
+            <a href="#m1">M</a>
+            <a href="#n1">N</a>
+            <a href="#o1">O</a>
+            <a href="#p1">P</a>
+            <a href="#q1">Q</a>
+            <a href="#r1">R</a>
+            <a href="#s1">S</a>
+            <a href="#t1">T</a>
+            <a href="#u1">U</a>
+            <a href="#v1">V</a>
+            <a href="#w1">W</a>
+            <a href="#x1">X</a>
+            <a href="#y1">Y</a>
+            <a href="#z1">Z</a>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div id="notifications_locations_page" data-role="page">
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="allow-locations">
+            <span>Please click the button bellow and allow ONEzoo to check your location we use the information to suggest localsuppliers.</span>
+            <button onClick="geoLocation();" class="button-reset-password">ALLOW LOCATIONS</button>
+        </div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="clear_both">&nbsp;</div>
+        <div class="allow-notifications">
+            <span>By clicking the button bellow you will help us to send you push notifications on your order day and notify you of specials!</span>
+            <button onClick="showNotificationConfirm();" class="button-reset-password">ALLOW NOTIFICATIONS</button>
+        </div>
+
+        <button class="next-step" id="next-allow-geo-loc" onClick="checkUserLogin();" disabled>NEXT</button>
+    </div>
+
+
+
+
+    <div data-role="page" id="add_credit_card">
+        
+        <div data-role="header" class="custome_header" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+             <div class="header_menu">
+                <a style="margin-top:10px;z-index:1000;" onClick="goBack();" class="ui-btn-left back-to-slider-signup" data-transition="none">
+                    <img src="img/backDark.png" alt="">
+                </a>
+            </div>
+            <span class="page-title one_zoo_logo"><img src="img/ONEzoo Logo Vector Black.png"></span>
+
+        </div>
+        <!-- /header -->
+
+        <div role="main" class="ui-content">
+            <div class="clear_both"></div>
+            <div class="checkout-box-main" id="">
+                <form name="frm_add_credit_card" id="frm_add_credit_card">
+                    <h2>Please use the following form to save new Credit Card.</h2><span class="caret-img"></span>
+                    <label for="new_card_holder_name">Card Holder's Name</label>
+                    <input data-role="none" class="holo" name="card_holder_name" id="new_card_holder_name" type="text" pattern="\w+ \w+.*" data-mini="true" title="Fill your first and last name">
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="new_credit_card">Card Number</label>
+                    <input data-role="none" class="holo" type="number" name="credit_card" id="new_credit_card" placeholder="4111 1111 1111 1111" data-mini="true" title="Fill your Card Number" maxlength="16">
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="new_month">Expiry Month</label>
+                    <input data-role="none" class="holo" type="number" name="month" id="new_month" placeholder="01" title="Expiry Month" maxlength="2" data-mini="true">
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="new_year">Expiry Year</label>
+                    <input data-role="none" class="holo" type="number" name="year" id="new_year" placeholder="2016" title="Expiry Year" maxlength="4" data-mini="true">
+                    <div class="clear_both">&nbsp;</div>
+                    <label for="new_card_cvv">Card CVV</label>
+                    <input data-role="none" class="holo" type="number" name="card_cvv" id="new_card_cvv" placeholder="123" title="CVV" maxlength="4" data-mini="true">
+                    <div class="clear_both">&nbsp;</div>
+                    <div style="text-align:right;">
+                        <a href="#" onclick="goBack();" data-mini="true" data-inline="true" data-role="button" data-theme="b">Cancel</a>'
+                        <a href="javascript:addCreditCardProcess('frm_add_credit_card');" class="button_blue" data-mini="true" data-inline="true" data-role="button" data-theme="b">Save Credit Card</a>
+                    </div>
+                </form>
+            </div>
+            <div data-role="popup" id="sup_join_add_credit_card" data-theme="a" class="ui-corner-all">
+                <div style="padding:10px 20px;">
+                    <h3>Request Supplier to Join</h3>
+                    <label for="sup_name" class="ui-hidden-accessible">Supplier Name:</label>
+                    <input name="sup_name" id="sup_name" value="" placeholder="Supplier Name" data-theme="a" type="text">
+                    <label for="sup_company" class="ui-hidden-accessible">Company:</label>
+                    <input name="sup_company" id="sup_company" value="" placeholder="Supplier Company" data-theme="a" type="text">
+                    <label for="sup_email" class="ui-hidden-accessible">Email:</label>
+                    <input name="sup_email" id="sup_email" value="" placeholder="Email" data-theme="a" type="text">
+                    <button onClick="sendJoinRequest()" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Send Join Request</button>
+                </div>
+            </div>
+
+        </div>
+        <!-- /content -->
+        
+    </div>
+
+    <div data-role="page" id="slide01" class="demo-page slider_slide" data-transition="none" data-title="slider" data-dom-cache="fasle" data-theme="a" data-prev="slide01" data-next="slide02">
+        <div role="main" class="ui-content"></div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+    <div data-role="page" id="slide02" class="demo-page slider_slide" data-transition="none" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="slide01" data-next="slide03">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+    <div data-role="page" id="slide03" class="demo-page slider_slide" data-transition="none" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="slide02" data-next="slide04">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+    <div data-role="page" id="slide04" class="demo-page slider_slide" data-transition="none" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="slide03" data-next="slide05">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+    <div data-role="page" id="slide05" class="demo-page slider_slide" data-transition="none" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="slide04" data-next="slide06">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <div data-role="page" id="slide06" class="demo-page slider_slide" data-transition="none" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="slide05" data-next="slide07">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <div data-role="page" id="slide07" class="demo-page slider_slide" data-transition="none" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="slide06" data-next="slide01">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+    <ul class="slide-pagination" style="display:none;">
+        <li class="slide01 active">
+            <a href="#slide01" data-transition="none"></a>
+        </li>
+        <li class="slide02">
+            <a href="#slide02" data-transition="none"></a>
+        </li>
+        <li class="slide03">
+            <a href="#slide03" data-transition="none"></a>
+        </li>
+        <li class="slide04">
+            <a href="#slide04" data-transition="none"></a>
+        </li>
+        <li class="slide05">
+            <a href="#slide05" data-transition="none"></a>
+        </li>
+        <li class="slide06">
+            <a href="#slide06" data-transition="none"></a>
+        </li>
+        <li class="slide07">
+            <a href="#slide07" data-transition="none"></a>
+        </li>
+    </ul>
+
+    <div id="buttons-create-sign" style="display:none;">
+        <button type="button" onClick="goTO('fast_registration_singup');stopSlideshow();" class="create-account-fast">CREATE ACCOUNT</button>
+        <button type="button" onClick="login();stopSlideshow();" class="sign-in">SIGN IN</button>
+        <button type="button" onClick="stopSlideshow();goTO('become_a_supplier_singup');" class="i-am-supplier">I AM A SUPPLIER</button>
+    </div>
+
+    <div data-role="page" id="no_internet_conection">
+        <div data-role="header" class="header_main" data-position="fixed" data-tap-toggle="false" data-hide-during-focus="false">
+            <div class="custome_header">
+                <span class="page-title one_zoo_logo"><img src="img/ONEzoo Logo Vector Black.png"></span>
+            </div>
+        </div>
+        <!-- /header -->
+        <div role="main" class="ui-content">
+
+
+        </div>
+        <!-- /content -->
+    </div>
+
+
+    <div data-role="page" id="intro1" class="demo-page slider_slide" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="intro1" data-next="intro2">
+        <div role="main" class="ui-content">
+        </div>
+    </div>
+    <!-- /page -->
+    <div data-role="page" id="intro2" class="demo-page slider_slide" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="intro1" data-next="intro3">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+    <div data-role="page" id="intro3" class="demo-page slider_slide" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="intro2" data-next="intro4">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+    <div data-role="page" id="intro4" class="demo-page slider_slide" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="intro3" data-next="intro5">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+    <div data-role="page" id="intro5" class="demo-page slider_slide" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="intro4" data-next="intro6">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+    <div data-role="page" id="intro6" class="demo-page slider_slide" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="intro5" data-next="intro7">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+    <div data-role="page" id="intro7" class="demo-page slider_slide" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="intro6" data-next="intro8">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+    <div data-role="page" id="intro8" class="demo-page slider_slide" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="intro7" data-next="intro9">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+    <div data-role="page" id="intro9" class="demo-page slider_slide" data-title="slider" data-dom-cache="true" data-theme="a" data-prev="intro8" data-next="intro9">
+        <div role="main" class="ui-content">
+        </div>
+        <!-- /content -->
+    </div>
+    <!-- /page -->
+    <ul class="slide-pagination-intro" style="display:none;">
+        <li class="intro1 active">
+            <a href="#intro1"></a>
+        </li>
+        <li class="intro2">
+            <a href="#intro2" data-transition="none"></a>
+        </li>
+        <li class="intro3">
+            <a href="#intro3" data-transition="none"></a>
+        </li>
+        <li class="intro4">
+            <a href="#intro4" data-transition="none"></a>
+        </li>
+        <li class="intro5">
+            <a href="#intro5" data-transition="none"></a>
+        </li>
+        <li class="intro6">
+            <a href="#intro6" data-transition="none"></a>
+        </li>
+        <li class="intro7">
+            <a href="#intro7" data-transition="none"></a>
+        </li>
+        <li class="intro8">
+            <a href="#intro8" data-transition="none"></a>
+        </li>
+        <li class="intro9">
+            <a href="#intro9" data-transition="none"></a>
+        </li>
+    </ul>
+    <div id="button-skip" style="display:none;">
+        <button onClick="skipSlideshow();" class="next-step ui-btn ui-shadow ui-corner-all" id="btn-skip" style="font-weight:700;">SKIP</button>
+    </div>
+    <div data-role="popup" id="popupArrowTooltip" data-arrow="true">
+        <p></p>
+    </div>
+</body>
+<!-- Don't Chnage the Listing -->
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="js/checkradios.min.js"></script>
+<script type="text/javascript" src="js/database.js"></script>
+<script type="text/javascript" src="js/onezoo_functions.js"></script>
+<script type="text/javascript" src="js/onezoo.js"></script>
+<script type="text/javascript" src="js/fastclick.js"></script>
+<script type="text/javascript" src="js/imgcache.js"></script>
+<script type="text/javascript" src="js/moment.min.js"></script>
+<script>
+    $('.custome_checkbox').checkradios({
+        checkbox: {
+            iconClass: 'fa fa-check'
+        },
+        radio: {
+            iconClass: 'fa fa-check'
+        },
+        onChange: function(checked, $element, $realElement){
+            var activePage = $.mobile.activePage.attr('id');
+            if(checked){
+                $("#"+$realElement[0].id).prop("checked",true);
+                if(activePage="user_account"){
+                    $("#account_form ."+$realElement[0].id).slideDown();
+                }
+            }else{
+                $("#"+$realElement[0].id).prop("checked",false);
+                if(activePage="user_account"){
+                    $("#account_form ."+$realElement[0].id).slideUp();
+               }
+            }
+        }
+    });
+</script>
+</html>

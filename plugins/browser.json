@@ -1,0 +1,94 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "at.modalog.cordova.plugin.cache": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "com.telerik.plugins.nativepagetransitions": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "com.xmartlabs.cordova.market": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-pdf-generator": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-actionsheet": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-app-version": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-contacts": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-datepicker": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-google-analytics": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-insomnia": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-safariviewcontroller": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-spinner": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-plugin-x-toast": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "cordova-sms-plugin": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "phonegap-plugin-mobile-accessibility": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "phonegap-plugin-push": {
+      "SENDER_ID": "85075801930",
+      "PACKAGE_NAME": "com.cart.gloveman"
+    },
+    "ionic-plugin-keyboard": {
+      "PACKAGE_NAME": "com.cart.gloveman"
+    }
+  },
+  "dependent_plugins": {}
+}
